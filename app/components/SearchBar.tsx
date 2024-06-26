@@ -1,5 +1,4 @@
 'use client';
-'use client';
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
