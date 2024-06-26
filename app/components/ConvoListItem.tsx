@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import React from 'react'
+import React from 'react';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/components/ui/avatar"
-import Link from 'next/link'
+} from '@/components/ui/avatar';
+import Link from 'next/link';
 
 const ConvoListItem = () => {
 
@@ -54,7 +54,7 @@ const ConvoListItem = () => {
       </Link>
     
     </>
-  )
-}
+  );
+};
 
-export default ConvoListItem
+export default ConvoListItem;

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: 'Rent tools from your neighbors',
 };
 
-export default function RootLayout({
+export default function RootLayout ({
   children,
 }: {
   children: React.ReactNode;

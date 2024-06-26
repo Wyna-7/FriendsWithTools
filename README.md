@@ -7,6 +7,17 @@ C2C Tool renting app for neighbors
 A tool renting app that allows users to upload the tools they own and offer them for rent, as well as view other user's tools and rent them.
 The app will allow for payment transactions and messaging between users.
 
+## Code review notes
+
+Create a .env file and add the database url:\
+
+Example: DATABASE_URL="postgresql://postgres:password@localhost:5432/friendswithtools?schema=public"
+
+'/' url will navigate to a deadend (it will eventually be the register/login page), add "/explore" to the url in order to see the app. \
+
+Seeding is not working fully yet, so we have hardcoded data.
+
+
 ## MVP
 
 - Users should be able to register, login and logout from the app.

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../../prisma/db'; 
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET (request: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
 
   if (!id) {

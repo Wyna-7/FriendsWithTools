@@ -6,7 +6,7 @@ import prisma from './db';
 // Define your Prisma client instance
 // const prisma = new PrismaClient();
 
-async function main() {
+async function main () {
   const users: User[] = [
     {
       _id: uuidv4(),

@@ -33,11 +33,11 @@ import { useRouter } from 'next/router';
 // }
 
 const ToolDetailsPage = () => {
-    return (
-        <div>
+  return (
+    <div>
             hi
-        </div>
-    );
-}
+    </div>
+  );
+};
 
 export default ToolDetailsPage;

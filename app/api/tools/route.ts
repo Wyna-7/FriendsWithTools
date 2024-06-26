@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../prisma/db'; 
 
-export async function GET(request: NextRequest) {
+export async function GET (request: NextRequest) {
   try {
     const tools = await prisma.toolCard.findMany();
     return NextResponse.json(tools);
