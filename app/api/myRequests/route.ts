@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import { v4 as uuidv4 } from 'uuid';
+import prisma from '../../../prisma/db';
+import { ToolRequest } from '@/app/lib/types';
 
 
-const prisma = new PrismaClient();
-
-export async function GET(request: NextRequest) {
+export async function GET (request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get('userId');
   
@@ -19,7 +17,7 @@ export async function GET(request: NextRequest) {
         userId: userId,
       },
     });
-    console.log('hello here', requests)
+    console.log('hello here', requests);
 
     return NextResponse.json(requests, { status: 200 });
   } catch (error) {
@@ -30,21 +28,20 @@ export async function GET(request: NextRequest) {
 
 
 
-export async function POST(request: NextRequest) {
+export async function POST (request: NextRequest) {
+  console.log('fgfffffff', await request.json())
   try {
     const { toolId, userId, status } = await request.json();
-    console.log(toolId, userId, status)
-
-    const newRequest = await prisma.toolRequest.create({
+    
+    const newRequest: Partial<ToolRequest> = await prisma.toolRequest.create({
       data: {
-        id: uuidv4(),
         status,
-        createdAt: new Date(),
         toolId,
         userId,
       },
     });
-
+    
+    console.log('hello')
     return NextResponse.json({ data: newRequest }, { status: 201 });
   } catch (error) {
     console.error(error);

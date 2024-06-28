@@ -4,7 +4,7 @@ import Liked from './Liked';
 
 export interface ToolCardProps {
   tool: ToolType;
-  query: string
+  query?: string
 }
 
 const ToolCardComponent = ({ tool, query }: ToolCardProps) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ToolCardComponent from './ToolCard';
-import { Request as RequestType, ToolCard as ToolType } from '../lib/types';
+import { ToolRequest as RequestType, ToolCard as ToolType } from '../lib/types';
 
 const MyRequests = ({ requests }: { requests: RequestType[] }) => {
   const [statusFilter, setStatusFilter] = useState<string>('pending');
