@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import UserTabs from '@/app/components/UserTabs';
 

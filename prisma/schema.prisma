@@ -17,13 +17,14 @@ model User {
   id             String         @id @default(uuid())
   name           String
   lastName       String
-  email          String         
+  email          String
   password       String
   profilePicture String
   conversations  Conversation[]
   reviews        ToolsReviews[]
   listings       ToolCard[]
   messages       Message[]
+  toolrequests   ToolRequest[]
 }
 
 model ToolCard {
@@ -38,17 +39,17 @@ model ToolCard {
   liked       Boolean
   available   Boolean
   reviews     ToolsReviews[]
+  toolrequests    ToolRequest[]
 
   ownerId        String
-  owner          User          @relation(fields: [ownerId], references: [id])
+  owner          User         @relation(fields: [ownerId], references: [id])
   toolCategoryId String
   ToolCategory   ToolCategory @relation(fields: [toolCategoryId], references: [id])
-
 }
 
 model ToolCategory {
   id           String     @id @default(uuid())
-  categoryName String?    
+  categoryName String?
   tools        ToolCard[]
 }
 
@@ -81,4 +82,14 @@ model Message {
   author         User         @relation(fields: [authorId], references: [id])
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id])
+}
+
+model ToolRequest {
+  id        String   @id @default(uuid())
+  status    String
+  toolId    String
+  tool      ToolCard @relation(fields: [toolId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }

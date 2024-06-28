@@ -1,7 +1,7 @@
 import { isString } from 'util';
 
 export type User = {
-  _id: string;
+  id: string;
   name: string;
   lastName: string;
   email: string;
@@ -11,6 +11,7 @@ export type User = {
   reviews: ToolsReviews[];
   listings: ToolCard[];
   messages: Message[];
+  toolrequests: ToolRequest[];
 };
 
 export type ToolCard = {
@@ -27,16 +28,17 @@ export type ToolCard = {
   reviews: ToolsReviews[];
   ownerId: string;
   toolCategoryId: string;
+  toolrequests: ToolRequest[];
 };
 
 export type ToolCategory = {
-  _id: string;
+  id: string;
   categoryName?: string;
   tools: ToolCard[];
 };
 
 export type ToolsReviews = {
-  _id: string;
+  id: string;
   authorId: string;
   content: string;
   createdAt: Date;
@@ -58,4 +60,12 @@ export type Message = {
   author: User;
   conversationId: string;
   conversation: Conversation;
+};
+
+export type ToolRequest = {
+  id: string;
+  status: string;
+  createdAt: Date;
+  toolId: string;
+  userId: string;
 };

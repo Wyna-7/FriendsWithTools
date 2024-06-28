@@ -25,7 +25,7 @@ const SearchBar = () => {
         <MagnifyingGlassIcon className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform stroke-2 cursor-pointer' />
         <Input
           onChange={(event) => handleChange(event.target.value)}
-          defaultValue={searchParams.get('query') ?? ''}
+          defaultValue={searchParams.get('query')?.toString()}
           placeholder='What do you wish to rent?'
           className='shadow-md pl-10 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-3xl h-12 cursor-pointer'
         />
