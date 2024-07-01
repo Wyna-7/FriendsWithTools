@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ToolCard, ToolsReviews } from '../../lib/types';
+import { ToolCard } from '../../lib/types';
 import ToolCardComponent from '../../components/ToolCard';
+import uniqBy from 'lodash/uniqBy';
+
 
 const ToolsPage = ({
   searchParams,
@@ -15,60 +16,68 @@ const ToolsPage = ({
 
 }) => {
   const [tools, setTools] = useState<ToolCard[]>([]);
+  const [allTools, setAllTools] = useState<ToolCard[]>([]);
+  const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const query = searchParams?.query || '';
   const category = searchParams?.category || '';
 
-  useEffect(() => {
-    const fetchTools = async () => {
-      try {
-        const response = await fetch(`/api/tools?query=${query}&category=${query}`);
-        const data: ToolCard[] = await response.json();
-        setTools(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch tools:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchTools();
-  }, [query, category]);
+  //
 
   useEffect(() => {
-    const fetchTools = async () => {
+    const fetchAllTools = async () => {
       try {
         const response = await fetch(`/api/search?query=${query}`);
         const data: ToolCard[] = await response.json();
-        setTools(data);
+        setAllTools(data);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch tools:', error);
         setLoading(false);
       }
     };
+    const fetchFavTools = async () => {
+      try {
+        const response = await fetch('/api/wishlist');
+        const data: ToolCard[] = await response.json();
+        data.forEach((el) => {
+          el.liked = true;
+        });
 
-    fetchTools();
+        setFavTools(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch tools:', error);
+        setLoading(false);
+      }
+    };
+    fetchAllTools();
+    fetchFavTools();
+
   }, [query]);
+
+
+
+  useEffect(() => {
+    const updatedTools = uniqBy([...favTools, ...allTools], 'id');
+    setTools(updatedTools);
+  }, [favTools, allTools]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900">Discover Your Ideal Tool Here!</h2>
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {tools.map((tool) => (
-            <div key={tool.id} className='tool-item group relative'>
-              <Link href={`/tools/${tool.id}`}>
-                <ToolCardComponent tool={tool}
-                  query={query}/>
-              </Link>
-            </div>
-          ))}
-        </div>
+    <div className='container mx-auto px-2 py-2'>
+      <h1 className='text-2xl font-bold mb-4 text-center'>
+        Discover Your Ideal Tool Here!
+      </h1>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-scroll mb-16'>
+        {tools.map((tool) => (
+          <div key={tool.id} className='tool-item'>
+            <ToolCardComponent tool={tool} />
+          </div>
+        ))}
       </div>
     </div>
   );

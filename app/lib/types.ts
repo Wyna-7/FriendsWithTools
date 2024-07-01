@@ -1,16 +1,17 @@
-import { isString } from 'util';
+
 
 export type User = {
   id: string;
+  clerkId: string;
+  username: string;
   name: string;
   lastName: string;
   email: string;
-  password: string;
-  profilePicture: string;
   conversations: Conversation[];
   reviews: ToolsReviews[];
   listings: ToolCard[];
   messages: Message[];
+  wishlist?: WishList;
   toolrequests: ToolRequest[];
 };
 
@@ -28,8 +29,21 @@ export type ToolCard = {
   reviews: ToolsReviews[];
   ownerId: string;
   toolCategoryId: string;
+  wishlists: ToolsOnWishlists[];
   toolrequests: ToolRequest[];
 };
+
+export type WishList = {
+  id: string;
+  ownerId: string;
+  list: ToolCard[]
+}
+
+
+export type ToolsOnWishlists = {
+  toolId: string;
+  wishlistId: string;
+}
 
 export type ToolCategory = {
   id: string;

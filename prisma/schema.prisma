@@ -15,36 +15,55 @@ datasource db {
 
 model User {
   id             String         @id @default(uuid())
+  clerkId        String         @unique
+  username       String         
   name           String
   lastName       String
-  email          String
-  password       String
-  profilePicture String
-  conversations  Conversation[]
+  email          String        @unique
+  conversations  Conversation[] @relation("UserConversations")
   reviews        ToolsReviews[]
   listings       ToolCard[]
   messages       Message[]
+  wishlist       WishList[]
   toolrequests   ToolRequest[]
 }
 
 model ToolCard {
-  id          String         @id @default(uuid())
-  name        String
-  description String
-  location    String
-  dailyRate   Int
-  weeklyRate  Int?
-  monthlyRate Int?
-  picture     String?
-  liked       Boolean
-  available   Boolean
-  reviews     ToolsReviews[]
+  id             String             @id @default(uuid())
+  name           String
+  description    String
+  location       String
+  dailyRate      Int
+  weeklyRate     Int?
+  monthlyRate    Int?
+  picture        String?
+  liked          Boolean
+  available      Boolean
+  reviews        ToolsReviews[]
   toolrequests    ToolRequest[]
-
   ownerId        String
-  owner          User         @relation(fields: [ownerId], references: [id])
+  owner          User              @relation(fields: [ownerId], references: [id])
   toolCategoryId String
-  ToolCategory   ToolCategory @relation(fields: [toolCategoryId], references: [id])
+  ToolCategory   ToolCategory       @relation(fields: [toolCategoryId], references: [id])
+  wishlists      ToolsOnWishlists[]
+  belongsto      WishList[]
+}
+
+model WishList {
+  id      String             @id @default(uuid())
+  ownerId String             @unique
+  owner   User               @relation(fields: [ownerId], references: [id])
+  list ToolCard[]
+  tools   ToolsOnWishlists[]
+}
+
+model ToolsOnWishlists {
+  toolId     String
+  tool       ToolCard @relation(fields: [toolId], references: [id])
+  wishlistId String
+  wishlist   WishList @relation(fields: [wishlistId], references: [id])
+
+  @@id([toolId, wishlistId])
 }
 
 model ToolCategory {
@@ -54,13 +73,11 @@ model ToolCategory {
 }
 
 model ToolsReviews {
-  id        String   @id @default(uuid())
-  content   String
-  createdAt DateTime @default(now())
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id])
-
+  id         String   @id @default(uuid())
+  content    String
+  createdAt  DateTime @default(now())
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
   toolCardId String
   toolCard   ToolCard @relation(fields: [toolCardId], references: [id])
 }
@@ -68,16 +85,14 @@ model ToolsReviews {
 model Conversation {
   id       String    @id @default(uuid())
   messages Message[]
-
   senderId String
-  sender   User   @relation(fields: [senderId], references: [id])
+  sender   User      @relation("UserConversations", fields: [senderId], references: [id])
 }
 
 model Message {
-  id        String   @id @default(uuid())
-  content   String
-  createdAt DateTime @default(now())
-
+  id             String       @id @default(uuid())
+  content        String
+  createdAt      DateTime     @default(now())
   authorId       String
   author         User         @relation(fields: [authorId], references: [id])
   conversationId String

@@ -18,7 +18,8 @@ export default function RootLayout ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+  }) {
+  
   return (
     <div >
       <div className='fixed  z-40 w-full bg-white px-4 sm:px-6 lg:px-8'>

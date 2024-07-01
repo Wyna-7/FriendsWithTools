@@ -1,11 +1,11 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
+    "clerkId" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "profilePicture" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -26,6 +26,22 @@ CREATE TABLE "ToolCard" (
     "toolCategoryId" TEXT NOT NULL,
 
     CONSTRAINT "ToolCard_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "WishList" (
+    "id" TEXT NOT NULL,
+    "ownerId" TEXT NOT NULL,
+
+    CONSTRAINT "WishList_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ToolsOnWishlists" (
+    "toolId" TEXT NOT NULL,
+    "wishlistId" TEXT NOT NULL,
+
+    CONSTRAINT "ToolsOnWishlists_pkey" PRIMARY KEY ("toolId","wishlistId")
 );
 
 -- CreateTable
@@ -77,11 +93,41 @@ CREATE TABLE "ToolRequest" (
     CONSTRAINT "ToolRequest_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_ToolCardToWishList" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_clerkId_key" ON "User"("clerkId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "WishList_ownerId_key" ON "WishList"("ownerId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_ToolCardToWishList_AB_unique" ON "_ToolCardToWishList"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ToolCardToWishList_B_index" ON "_ToolCardToWishList"("B");
+
 -- AddForeignKey
 ALTER TABLE "ToolCard" ADD CONSTRAINT "ToolCard_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ToolCard" ADD CONSTRAINT "ToolCard_toolCategoryId_fkey" FOREIGN KEY ("toolCategoryId") REFERENCES "ToolCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WishList" ADD CONSTRAINT "WishList_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ToolsOnWishlists" ADD CONSTRAINT "ToolsOnWishlists_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "ToolCard"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ToolsOnWishlists" ADD CONSTRAINT "ToolsOnWishlists_wishlistId_fkey" FOREIGN KEY ("wishlistId") REFERENCES "WishList"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ToolsReviews" ADD CONSTRAINT "ToolsReviews_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -103,3 +149,9 @@ ALTER TABLE "ToolRequest" ADD CONSTRAINT "ToolRequest_toolId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "ToolRequest" ADD CONSTRAINT "ToolRequest_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ToolCardToWishList" ADD CONSTRAINT "_ToolCardToWishList_A_fkey" FOREIGN KEY ("A") REFERENCES "ToolCard"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ToolCardToWishList" ADD CONSTRAINT "_ToolCardToWishList_B_fkey" FOREIGN KEY ("B") REFERENCES "WishList"("id") ON DELETE CASCADE ON UPDATE CASCADE;

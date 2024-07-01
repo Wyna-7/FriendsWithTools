@@ -1,12 +1,9 @@
-import SearchBar from './components/SearchBar';
+import { redirect } from 'next/navigation';
 
-export default function Home () {
+export default async function Home () {
   return (
     <main>
-      <div>
-        
-      </div>
-      <h1>Explore Page</h1>
+      {redirect('/sign-in')};
     </main>
   );
 }

@@ -4,6 +4,10 @@ import './globals.css';
 
 import { CategoriesStoreProvider } from './lib/providers/categories-store-provider';
 
+import {
+  ClerkProvider,
+} from '@clerk/nextjs';
+import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
 const roboto = Roboto({
   weight: '400',
   subsets: ['latin'],
@@ -21,10 +25,19 @@ export default function RootLayout ({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className='h-full'>
-      <body className={`${roboto.className}, h-full`}>
-        <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        variables: { colorPrimary: '#106E60', },
+        signIn: {
+          variables: {colorPrimary: '#106E60'}
+        }
+      }}
+    >
+      <html lang='en' className='h-full'>
+        <body className={`${roboto.className}, h-full`}>
+          <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

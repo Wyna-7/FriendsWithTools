@@ -7,6 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { useCategoriesStore } from '../lib/providers/categories-store-provider';
 import { link } from 'fs';
 
+
 const SearchBar = () => {
 
   const { categories, fetchCategories } = useCategoriesStore(
