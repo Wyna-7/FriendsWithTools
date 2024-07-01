@@ -2,7 +2,7 @@ import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { UserWebhookEvent } from '@clerk/nextjs/server';
 import prisma from '../../../../prisma/db';
-import { User } from '@/app/lib/types';
+
 
 async function handler (request: Request) {
 

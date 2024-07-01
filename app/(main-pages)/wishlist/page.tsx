@@ -41,7 +41,7 @@ const WishlistPage = () => {
       </header>
       <div className='wishlist-list grid z-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-24 mb-20 '>
         {favTools.length === 0 ?
-          <div className='z-50 h-full flex flex-col justify-center align-middle text-center text-xl p-4 mt-56'>
+          <div data-testid='empty-wishlist' className='z-50 h-full flex flex-col justify-center align-middle text-center text-xl p-4 mt-56'>
             <div>Your wish list is empty ☹</div> 
             <div>Go check some nearby tools in the explore page! </div>
           </div>

@@ -4,8 +4,7 @@ import { WishList } from '../../lib/types';
 
 
 export async function GET (request: NextRequest) {
-
-  
+ 
   try {
     const wishList: WishList= await prisma.wishList.findFirst({ where: { ownerId: process.env.CURRENT_USERID }, include: {list: true} });
 
