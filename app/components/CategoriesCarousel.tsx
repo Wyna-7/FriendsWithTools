@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -16,6 +16,20 @@ const CategoriesCarousel = () => {
     (state) => state,
   );
 
+  const [toolCategory, setToolCategory] = useState('');
+
+  const handleCategory = (categoryId) => {
+    console.log('category:', categoryId);
+    setToolCategory(categoryId);
+  };
+
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      categories.forEach(category => console.log(category.categoryName));
+    }
+  }, [categories]);
+
 
 
   return (
@@ -25,8 +39,10 @@ const CategoriesCarousel = () => {
         <CarouselContent>
           {
             categories.map((category) =>(
-              <CarouselItem key={category.id} className="text-darkGreen font-semibold  sm:basis-2/3 md:basis-1/2 lg:basis-1/3  cursor-pointer"
-              >{category.categoryName}</CarouselItem>
+              <CarouselItem className="text-darkGreen font-semibold  sm:basis-2/3 md:basis-1/2 lg:basis-1/3  cursor-pointer"
+                key={category.id} onClick={() => handleCategory(category.id)}>
+                {category.categoryName}</CarouselItem>
+
             ))
           }
         </CarouselContent>

@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { ToolCard } from '../../lib/types';
 import ToolCardComponent from '../../components/ToolCard';
 import uniqBy from 'lodash/uniqBy';
-
+import { ToolCategory } from '@prisma/client';
+import { useSearchParams } from 'next/navigation';
 
 const ToolsPage = ({
   searchParams,
@@ -19,15 +20,22 @@ const ToolsPage = ({
   const [allTools, setAllTools] = useState<ToolCard[]>([]);
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  // const searchParamTest = useSearchParams();
   const query = searchParams?.query || '';
   const category = searchParams?.category || '';
+  console.log(query);
+  console.log('categories',category);
+  // const search = searchParamTest.get('query');
+  // console.log('search', query);
 
-  //
 
   useEffect(() => {
     const fetchAllTools = async () => {
       try {
+        // const response = await fetch(`/api/search?query=${search}`);
         const response = await fetch(`/api/search?query=${query}`);
+        console.log(response);
         const data: ToolCard[] = await response.json();
         setAllTools(data);
         setLoading(false);
@@ -35,6 +43,7 @@ const ToolsPage = ({
         console.error('Failed to fetch tools:', error);
         setLoading(false);
       }
+
     };
     const fetchFavTools = async () => {
       try {
@@ -51,10 +60,25 @@ const ToolsPage = ({
         setLoading(false);
       }
     };
+
+    // const fetchCategory = async () => {
+    //   try {
+    //     const response = await fetch('/api/category={category}');
+    //     const data: ToolCard[] = await response.json();
+    //     setToolCategory(data);
+    //     setLoading(false);
+    //   } catch (error) {
+    //     console.error('Failed to fetch tools:', error);
+    //     setLoading(false);
+    //   }
+    // };
+
+
     fetchAllTools();
     fetchFavTools();
+    // fetchCategory();
 
-  }, [query]);
+  }, [query, category]);
 
 
 
@@ -73,11 +97,13 @@ const ToolsPage = ({
         Discover Your Ideal Tool Here!
       </h1>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-scroll mb-16'>
-        {tools.map((tool) => (
-          <div key={tool.id} className='tool-item'>
-            <ToolCardComponent tool={tool} />
-          </div>
-        ))}
+        {tools
+          .filter((tool) =>  tool.toolCategoryId === '0804c1b1-249e-4103-8065-cfbc7e2515dd')
+          .map((tool) => (
+            <div key={tool.id} className='tool-item'>
+              <ToolCardComponent tool={tool} />
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -10,25 +10,6 @@ import { link } from 'fs';
 
 const SearchBar = () => {
 
-  const { categories, fetchCategories } = useCategoriesStore(
-    (state) => state,
-  );
-
-
-  // useEffect(() => {
-  //   fetchCategories();
-  // }, [fetchCategories]);
-
-  useEffect(() => {
-    if (categories.length > 0) {
-      categories.forEach(category => console.log(category.categoryName));
-    }
-    console.log(categories);
-  }, [categories]);
-
-
-
-
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
@@ -38,7 +19,7 @@ const SearchBar = () => {
     else params.delete('query');
 
     router.replace(`${pathName}?${params.toString()}`);
-  }, 500);
+  }, 1000);
 
   return (
     <div className=' pt-6 pb-6 bg-white  mb-5 w-full flex items-center justify-center' >
