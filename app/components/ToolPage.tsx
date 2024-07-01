@@ -65,8 +65,8 @@ export interface ToolCardProps {
 }
 
 const ToolCardComponent = ({ tool }: ToolCardProps) => {
-  const defaultImage = 'https://shorturl.at/PyeKu'; 
-  const testUserId = process.env.HARDCODED_ID
+  const defaultImage = 'https://shorturl.at/PyeKu';
+  const testUserId = process.env.HARDCODED_ID;
   const handleRentClick = async () => {
     try {
       const response = await fetch('/api/myRequests', {
@@ -76,7 +76,7 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
         },
         body: JSON.stringify({
           toolId: tool.id,
-          userId: '64243b6a-2c1b-4277-b77f-0cf29fe39109', // Replace with the actual user ID
+          userId: '4e25264b-9404-46b5-9b27-549f6af6c72f', // Replace with the actual user ID
           status: 'accepted',
         }),
       });
