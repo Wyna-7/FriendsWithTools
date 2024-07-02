@@ -9,17 +9,23 @@ import {
 } from '@/components/ui/carousel';
 import { useCategoriesStore } from '../lib/providers/categories-store-provider';
 import { useToolCategoryStore } from '../lib/stores/toolCategory-store';
+import { ToolCard } from '../lib/types';
 
 const CategoriesCarousel = () => {
   const { categories } = useCategoriesStore((state) => state);
 
   // const [toolCategory, setToolCategory] = useState('');
-  const { toolCategory, setToolCategory, resetToolCategory } = useToolCategoryStore((state) => state);
+  const { toolCategory, setToolCategory} = useToolCategoryStore((state) => state);
   console.log('hello', toolCategory);
   const handleCategory = (categoryId: string) => {
     console.log('category id', categoryId);
-    setToolCategory(categoryId);
+    if (toolCategory === categoryId) {
+      setToolCategory('');
+    } else {
+      setToolCategory(categoryId);
+    }
   };
+
 
   useEffect(() => {
     if (categories.length > 0) {
@@ -29,14 +35,11 @@ const CategoriesCarousel = () => {
 
   return (
     <div>
-      <button onClick={resetToolCategory} className='mb-4 p-2 bg-red-500 text-white'>
-        Reset Category
-      </button>
-      <Carousel className='w-full'>
-        <CarouselContent>
+      <Carousel className='w-full '>
+        <CarouselContent className="-ml-2 md:ml-10">
           {categories.map((category) => (
             <CarouselItem
-              className='text-darkGreen font-semibold  sm:basis-3/3 md:basis-1/2 lg:basis-1/3  cursor-pointer'
+              className='text-darkGreen font-semibold pl-1  md:basis-1/3 lg:basis-1/3  cursor-pointer'
               key={category.id}
               onClick={() => handleCategory(category.id)}
             >
