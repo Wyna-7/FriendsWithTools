@@ -14,9 +14,16 @@ import {
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
-
+import { useCategoriesStore } from '@/app/lib/providers/categories-store-provider';
+import { Ultra } from 'next/font/google';
 const Form = () => {
-  const [input, setInput] = useState<ToolCard>({
+
+  const {categories} = useCategoriesStore(
+    (state) => state,
+  );
+
+
+  const [input, setInput] = useState<Partial <ToolCard>>({
     name: '',
     description: '',
     location: '',
@@ -24,34 +31,23 @@ const Form = () => {
     picture: '', // Added for picture state
     liked: false,
     available: true,
-    ownerId: 'acaa5f19-db41-44b2-a6a9-a32e051575b8', // Replace with the actual user ID
-    id: uuidv4(),
+    ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // actual owner id
     reviews: [],
     toolCategoryId: '',
     toolrequests: [],
     wishlists: [],
     active: true
-
   });
-  const [categories, setCategories] = useState<ToolCategory[]>([]);
+  // const [categories, setCategories] = useState<ToolCategory[]>([]);
   //const [image, setImage] = useState<File | null>(null); // State to store the selected image file
   const router= useRouter();
   useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const response = await fetch('/api/categories');
-        if (!response.ok) {
-          throw new Error('Failed to fetch categories');
-        }
-        const data: ToolCategory[] = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error('Failed to fetch categories:', error);
-      }
-    };
+    if (categories.length > 0) {
+      categories.forEach(category => console.log(category.categoryName));
+    }
+    console.log(categories);
 
-    fetchCategory();
-  }, []);
+  }, [categories]);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -127,8 +123,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: '438088e9-19de-45f9-8eec-9ebbce2c0678', // Replace with the actual 
-        id: uuidv4(),
+        ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],

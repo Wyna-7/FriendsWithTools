@@ -4,24 +4,22 @@ import prisma from '../../../prisma/db';
 export async function GET (request: NextRequest) {
   const url = new URL(request.url);
 
-  const query = url.searchParams.get('query');
-  // const category = url.searchParams.get('category');
+  const category = url.searchParams.get('category') || '';
 
   try {
-    const tools = await prisma.toolCard.findMany({
+    const categories = await prisma.toolCategory.findMany({
       where: {
-        name: {
-          contains: query || '',
+        categoryName: {
+          contains: category,
           mode: 'insensitive',
         },
       },
-      include: {owner: true}
     });
 
-    return NextResponse.json(tools);
+    return NextResponse.json(categories);
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to fetch tools' },
+      { error: 'Failed to fetch category' },
       { status: 500 }
     );
   }

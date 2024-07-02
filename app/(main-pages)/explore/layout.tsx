@@ -1,3 +1,4 @@
+import CategoriesCarousel from '@/app/components/CategoriesCarousel';
 import SearchBar from '@/app/components/SearchBar';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
@@ -17,11 +18,20 @@ export default function RootLayout ({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-  
+}) {
   return (
-    <div>
-      <SearchBar />
+    <div className='w-screen'>
+      <div className='fixed  z-40 w-full bg-white px-4 sm:px-6 lg:px-8'>
+        <div className='w-full flex flex-col items-center justify-center'>
+          <div className='w-full flex justify-center'>
+            <SearchBar />
+          </div>
+          <div className='w-9/10 mb-5 sm: w-3/4 flex justify-center '>
+            <CategoriesCarousel />
+          </div>
+        </div>
+      </div>
+
       {children}
     </div>
   );

@@ -1,15 +1,14 @@
 import React from 'react';
 import { ToolCard } from '../lib/types';
-import Link from 'next/link';  
+import Link from 'next/link';
 
 
-export interface ToolCardProps {
+export interface ToolPageProps {
   tool: ToolCard;
 }
 
-const ToolCardComponent = ({ tool }: ToolCardProps) => {
-  const defaultImage = 'https://shorturl.at/PyeKu'; 
-  const testUserId = process.env.HARDCODED_ID;
+const ToolPageComponent = ({ tool }: ToolPageProps) => {
+  const defaultImage = 'https://shorturl.at/PyeKu';
   const handleRentClick = async () => {
     try {
       const response = await fetch('/api/myRequests', {
@@ -19,7 +18,7 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
         },
         body: JSON.stringify({
           toolId: tool.id,
-          userId: '391442ac-518b-4d4e-a089-e53871ad22b4', // Replace with the actual user ID
+          userId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual user ID
           status: 'pending',
         }),
       });
@@ -92,4 +91,4 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
     </>
   );
 };
-export default ToolCardComponent;
+export default ToolPageComponent;

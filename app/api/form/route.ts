@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../prisma/db';
 
 export async function POST (request: NextRequest) {
+  console.log('here');
   try {
+
     const addedTool = await request.json();
     const {
       name,
@@ -17,7 +19,7 @@ export async function POST (request: NextRequest) {
       ownerId,
       toolCategoryId,
     } = addedTool;
-    
+    console.log('owner ID',ownerId);
     const newTool = await prisma.toolCard.create({
       data: {
         name,

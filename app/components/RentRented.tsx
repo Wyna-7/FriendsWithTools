@@ -38,11 +38,11 @@ const RentRented = () => {
   const [tools, setTools] = useState<ToolType[]>([]);
   const [sentRequests, setSentRequests] = useState<RequestType[]>([]);
   const [receivedRequests, setReceivedRequests] = useState<RequestType[]>([]);
-  // const userId = process.env.HARDCODED_ID || '64243b6a-2c1b-4277-b77f-0cf29fe39109'; 
-  const userId = '391442ac-518b-4d4e-a089-e53871ad22b4'; // Replace with the actual userId
+
+  const userId = 'af8f66a5-2594-4f7a-881e-ae88585dc3f8'; // Replace with the actual userId
 
   useEffect(() => {
-    const ownerId = '391442ac-518b-4d4e-a089-e53871ad22b4'; // Replace with the actual ownerId
+    const ownerId = 'af8f66a5-2594-4f7a-881e-ae88585dc3f8'; // Replace with the actual ownerId
 
     if (activeComponent === 'toolsToRent') {
       fetchTools(ownerId).then(setTools);
@@ -55,10 +55,7 @@ const RentRented = () => {
     }
   }, [activeComponent]);
 
-  const handleClick = (component: string) => {
-    setActiveComponent(component);
-  };
-  
+
   return (
     <div className="flex flex-col h-screen">
       <header className='fixed z-40 w-full flex items-center justify-center top-0 border-t border-grey h-20 shadow-md bg-darkGreen'>

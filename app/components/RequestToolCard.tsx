@@ -8,7 +8,7 @@ export interface RequestToolCardProps {
 }
 
 const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
-  const defaultImage = 'https://shorturl.at/PyeKu'; 
+  const defaultImage = 'https://shorturl.at/PyeKu';
 
   const handleDeleteClick = async () => {
     try {
