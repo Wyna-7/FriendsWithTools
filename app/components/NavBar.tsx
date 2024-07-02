@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { UserButton } from '@clerk/nextjs';
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -54,7 +55,7 @@ const NavBar = () => {
             }
           />
         </Link>
-        <Link href='/user'>
+        {/* <Link href='/user'>
           <UserIcon
             className={
               currentPath === '/user'
@@ -62,7 +63,8 @@ const NavBar = () => {
                 : 'size-8 stroke-grey stroke-2'
             }
           />
-        </Link>
+        </Link> */}
+        <UserButton />
       </div>
     </div>
   );

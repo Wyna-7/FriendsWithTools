@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation'; 
 import { ToolCard } from '@/app/lib/types'; 
-import ToolPage from '@/app/components/ToolPage'; // Ensure this path is correct
+import ToolPage from '@/app/components/ToolPage'; 
+import Link from 'next/link';  
+
 
 const ToolDetailPage = () => {
   const router = useRouter();
@@ -42,12 +44,6 @@ const ToolDetailPage = () => {
   
   return (
     <div>
-      <button 
-        onClick={() => router.push('/explore')} 
-        className="flex items-center justify-center w-12 h-12 text-black border-2 rounded text-2xl hover:bg-gray-700 mb-4 "
-      >
-        &lt;
-      </button>
       <ToolPage tool={tool} />
     </div>
   );

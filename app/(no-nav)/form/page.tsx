@@ -24,15 +24,21 @@ const Form = () => {
     picture: '', // Added for picture state
     liked: false,
     available: true,
+<<<<<<< HEAD
     ownerId: '4e25264b-9404-46b5-9b27-549f6af6c72f', // Replace with the actual user ID
+=======
+    ownerId: 'acaa5f19-db41-44b2-a6a9-a32e051575b8', // Replace with the actual user ID
+>>>>>>> febf035a2d7d02fc33ab3954c73c4c50bb0459c8
     id: uuidv4(),
     reviews: [],
     toolCategoryId: '',
-    toolrequests: []
+    toolrequests: [],
+    wishlists: [],
+    active: true
 
   });
   const [categories, setCategories] = useState<ToolCategory[]>([]);
-  const [image, setImage] = useState<File | null>(null); // State to store the selected image file
+  //const [image, setImage] = useState<File | null>(null); // State to store the selected image file
   const router= useRouter();
   useEffect(() => {
     const fetchCategory = async () => {
@@ -67,7 +73,6 @@ const Form = () => {
     }));
   };
 
-
   const handleSelectChange = (name: string, value: string) => {
     setInput((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -78,9 +83,7 @@ const Form = () => {
       try {
         const storageRef = ref(storage, `files/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
-
         await uploadTask;
-
         const mediaUrl = await getDownloadURL(uploadTask.snapshot.ref);
         console.log('Firebase MediaURL', mediaUrl);
 
@@ -89,7 +92,7 @@ const Form = () => {
           picture: mediaUrl,
         }));
 
-        setImage(file); // Set the file to state for later use if needed
+        // setImage(file); // Set the file to state for later use if needed
 
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -128,11 +131,17 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
+<<<<<<< HEAD
         ownerId: '64243b6a-2c1b-4277-b77f-0cf29fe39109', // Replace with the actual
+=======
+        ownerId: '438088e9-19de-45f9-8eec-9ebbce2c0678', // Replace with the actual 
+>>>>>>> febf035a2d7d02fc33ab3954c73c4c50bb0459c8
         id: uuidv4(),
         reviews: [],
         toolCategoryId: '',
-        toolrequests: []
+        toolrequests: [],
+        wishlists: [],
+        active: true
       });
       router.push('/rented');
     } catch (error) {
@@ -147,8 +156,10 @@ const Form = () => {
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-12 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
           </svg>
-
         </Link>
+        {/*<Link href='/rented'>
+            <ChevronLeftIcon className='h-4 w-4' />         Use this icon as a back button everywhere in app?
+          </Link>*/}
       </header>
       <div className='flex justify-center items-center  h-200'>
 

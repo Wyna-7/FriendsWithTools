@@ -1,20 +1,16 @@
-import { PrismaClient, Prisma } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { User, ToolCard, ToolCategory, ToolsReviews, Conversation, Message, ToolRequest } from '@/app/lib/types';
 import prisma from './db';
 
-// Define your Prisma client instance
-// const prisma = new PrismaClient();
-
-async function main() {
+async function main () {
   const users: User[] = [
     {
       id: uuidv4(),
+      clerkId: 'user_2iYe6pC4iurhC3BfaFn5ROpfOZ6',
+      username: 'Cool nickname',
       name: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
-      password: 'hashedpassword1',
-      profilePicture: 'https://example.com/profile1.jpg',
       conversations: [],
       reviews: [],
       listings: [],
@@ -23,11 +19,11 @@ async function main() {
     },
     {
       id: uuidv4(),
+      clerkId: 'user_5iYe6pC4lpghC3BfaFn5ROuiOZ6',
+      username: 'Cool nickname2',
       name: 'Jane',
       lastName: 'Smith',
       email: 'jane.smith@example.com',
-      password: 'hashedpassword2',
-      profilePicture: 'https://example.com/profile2.jpg',
       conversations: [],
       reviews: [],
       listings: [],
@@ -64,7 +60,9 @@ async function main() {
       reviews: [],
       ownerId: users[0].id,
       toolCategoryId: toolCategories[0].id,
-      toolrequests: []
+      toolrequests: [],
+      wishlists: [],
+      active: true
     },
     {
       id: uuidv4(),
@@ -80,7 +78,9 @@ async function main() {
       reviews: [],
       ownerId: users[1].id,
       toolCategoryId: toolCategories[1].id,
-      toolrequests: []
+      toolrequests: [],
+      wishlists: [],
+      active: true
     }
   ];
 
@@ -165,11 +165,11 @@ async function main() {
     await prisma.user.create({
       data: {
         id: user.id,
+        clerkId: user.clerkId,
+        username: user.username,
         name: user.name,
         lastName: user.lastName,
         email: user.email,
-        password: user.password,
-        profilePicture: user.profilePicture
       }
     });
   }
@@ -216,6 +216,7 @@ async function main() {
         available: tool.available,
         ownerId: tool.ownerId,
         toolCategoryId: tool.toolCategoryId,
+        active: tool.active,
         reviews: {
           createMany: {
             data: tool.reviews.map(review => ({

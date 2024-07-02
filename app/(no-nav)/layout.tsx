@@ -1,6 +1,6 @@
-import SearchBar from '@/app/components/SearchBar';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import NavBar from '../components/NavBar';
 
 const roboto = Roboto({
   weight: '400',
@@ -17,11 +17,9 @@ export default function RootLayout ({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-  
+}) {
   return (
-    <div>
-      <SearchBar />
+    <div className='h-full'>
       {children}
     </div>
   );

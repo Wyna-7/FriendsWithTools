@@ -26,3 +26,22 @@ export async function GET (request: NextRequest, { params }: { params: { id: str
     return NextResponse.json({ error: 'Failed to fetch tool' }, { status: 500 });
   }
 }
+
+
+
+export async function PATCH (request: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const { id } = params;
+
+    const updatedTool = await prisma.toolCard.update({
+      where: { id },
+      data: { active: false },
+    });
+
+    return NextResponse.json({ data: updatedTool }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+

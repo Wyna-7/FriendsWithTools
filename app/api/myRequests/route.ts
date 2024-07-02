@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest) {
+export async function GET (request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get('userId');
   
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
         userId: userId,
       },
     });
-    console.log('hello here', requests)
+    console.log('hello here', requests);
 
     return NextResponse.json(requests, { status: 200 });
   } catch (error) {
@@ -30,10 +30,10 @@ export async function GET(request: NextRequest) {
 
 
 
-export async function POST(request: NextRequest) {
+export async function POST (request: NextRequest) {
   try {
     const { toolId, userId, status } = await request.json();
-    console.log(toolId, userId, status)
+    console.log(toolId, userId, status);
 
     const newRequest = await prisma.toolRequest.create({
       data: {

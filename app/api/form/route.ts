@@ -5,7 +5,6 @@ export async function POST (request: NextRequest) {
   try {
     const addedTool = await request.json();
     const {
-      id,
       name,
       description,
       location,
@@ -21,7 +20,6 @@ export async function POST (request: NextRequest) {
     
     const newTool = await prisma.toolCard.create({
       data: {
-        id,
         name,
         description,
         location,
