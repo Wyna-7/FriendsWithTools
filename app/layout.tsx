@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
+
+import { CategoriesStoreProvider } from './lib/providers/categories-store-provider';
+
 import {
   ClerkProvider,
 } from '@clerk/nextjs';
@@ -32,7 +35,7 @@ export default function RootLayout ({
     >
       <html lang='en' className='h-full'>
         <body className={`${roboto.className}, h-full`}>
-          {children}
+          <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
         </body>
       </html>
     </ClerkProvider>

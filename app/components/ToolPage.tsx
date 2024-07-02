@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToolCard } from '../lib/types';
-import Link from 'next/link';  
+import Link from 'next/link';
 
 
 export interface ToolCardProps {
@@ -8,12 +8,8 @@ export interface ToolCardProps {
 }
 
 const ToolCardComponent = ({ tool }: ToolCardProps) => {
-<<<<<<< HEAD
   const defaultImage = 'https://shorturl.at/PyeKu';
-=======
-  const defaultImage = 'https://shorturl.at/PyeKu'; 
->>>>>>> febf035a2d7d02fc33ab3954c73c4c50bb0459c8
-  const testUserId = process.env.HARDCODED_ID;
+  const testUserId = process.env.HARDCODED_ID;;
   const handleRentClick = async () => {
     try {
       const response = await fetch('/api/myRequests', {

@@ -5,66 +5,55 @@ import {
   HeartIcon,
   WrenchScrewdriverIcon,
   EnvelopeIcon,
-  UserIcon,
+  PlusCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserButton } from '@clerk/nextjs';
 
+
+
 const NavBar = () => {
   const currentPath = usePathname();
 
-  return (
-    <div className=' fixed bg-white inset-x-0 bottom-0 border-t  border-grey h-20 shadow-md'>
-      <div className='flex justify-around items-center h-full p-4'>
-        <Link href='/explore'>
-          <MagnifyingGlassIcon
-            className={
-              currentPath === '/explore'
-                ? 'size-8 stroke-darkGreen stroke-2'
-                : 'size-8 stroke-grey stroke-2'
-            }
-          />
-        </Link>
-        <Link href={'/wishlist'}>
-          {/* test */}
-          <HeartIcon
-            className={
-              currentPath === '/wishlist'
-                ? 'size-8 stroke-darkGreen stroke-2'
-                : 'size-8 stroke-grey stroke-2'
-            }
-          />
-        </Link>
+  const navItems = [
+    { path: '/explore', icon: MagnifyingGlassIcon, label: 'Explore' },
+    { path: '/wishlist', icon: HeartIcon, label: 'Wishlist' },
+    { path: '/form', icon: PlusCircleIcon, label: 'Form' },
+    { path: '/rented', icon: WrenchScrewdriverIcon, label: 'Rented' },
+    { path: '/inbox', icon: EnvelopeIcon, label: 'Inbox' },
+  ];
 
-        <Link href='/rented'>
-          <WrenchScrewdriverIcon
-            className={
-              currentPath === '/rented'
-                ? 'size-8 stroke-darkGreen stroke-2'
-                : 'size-8 stroke-grey stroke-2'
-            }
-          />
-        </Link>
-        <Link href='/inbox'>
-          <EnvelopeIcon
-            className={
-              currentPath === '/inbox'
-                ? 'size-8 stroke-darkGreen stroke-2'
-                : 'size-8 stroke-grey stroke-2'
-            }
-          />
-        </Link>
-        {/* <Link href='/user'>
-          <UserIcon
-            className={
-              currentPath === '/user'
-                ? 'size-8 stroke-darkGreen stroke-2'
-                : 'size-8 stroke-grey stroke-2'
-            }
-          />
-        </Link> */}
-        <UserButton />
+  return (
+    <div className='fixed bg-white inset-x-0 bottom-0 border-t border-grey h-20 shadow-md'>
+      <div className='flex justify-around items-center h-full p-4'>
+        {navItems.map(({ path, icon: Icon, label }) => (
+          <div key={path}>
+            <Link href={path}>
+              <div className='flex flex-col items-center content-center cursor-pointer'>
+                <div>
+                  <Icon
+                    className={
+                      currentPath === path
+                        ? 'h-8 w-8 stroke-darkGreen stroke-2'
+                        : 'h-8 w-8 stroke-grey stroke-2'
+                    }
+                  />
+                </div>
+                <div>
+                  <span className={`hidden sm:block ${currentPath === path ? 'text-darkGreen' : 'text-grey'}`}>
+                    {label}
+                  </span>
+                </div>
+
+              </div>
+            </Link>
+          </div>
+        ))}
+        <div className='flex flex-col items-center'>
+          <UserButton />
+          <span className='hidden sm:block text-grey mt-0.5'>Profile</span>
+        </div>
       </div>
     </div>
   );

@@ -4,30 +4,41 @@ import { useEffect, useState } from 'react';
 import { ToolCard } from '../../lib/types';
 import ToolCardComponent from '../../components/ToolCard';
 import uniqBy from 'lodash/uniqBy';
-
-
+import { ToolCategory } from '@prisma/client';
+import { useSearchParams } from 'next/navigation';
+import { useCategoriesStore } from '../../lib/providers/categories-store-provider';
+import { useToolCategoryStore } from '@/app/lib/stores/toolCategory-store';
 const ToolsPage = ({
   searchParams,
 }: {
   searchParams?: {
     query?: string;
+    category?: string;
   };
-
 }) => {
   const [tools, setTools] = useState<ToolCard[]>([]);
   const [allTools, setAllTools] = useState<ToolCard[]>([]);
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const query = searchParams?.query || '';
 
+  const { categories } = useCategoriesStore((state) => state);
+  const { toolCategory, setToolCategory } = useToolCategoryStore((state) => state);
+
+
+  console.log('tool category', toolCategory);
+
+  const query = searchParams?.query || '';
+  // const category = searchParams?.category || '';
 
 
   useEffect(() => {
     const fetchAllTools = async () => {
       try {
+
         const response = await fetch(`/api/search?query=${query}`);
+
         const data: ToolCard[] = await response.json();
-        
+
         setAllTools(data);
         setLoading(false);
       } catch (error) {
@@ -35,7 +46,6 @@ const ToolsPage = ({
         setLoading(false);
       }
     };
-
     const fetchFavTools = async () => {
       try {
         const response = await fetch('/api/wishlist');
@@ -43,7 +53,7 @@ const ToolsPage = ({
         data.forEach((el) => {
           el.liked = true;
         });
-        
+
         setFavTools(data);
         setLoading(false);
       } catch (error) {
@@ -51,13 +61,13 @@ const ToolsPage = ({
         setLoading(false);
       }
     };
+
     fetchAllTools();
     fetchFavTools();
-    
+
   }, [query]);
-  
-  
-  useEffect(() => { 
+
+  useEffect(() => {
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');
     setTools(updatedTools);
   }, [favTools, allTools]);
@@ -68,13 +78,24 @@ const ToolsPage = ({
 
   return (
     <div className='container mx-auto px-2 py-2'>
-      <div className='explore-list grid z-20 grid-cols-1 sm:grid-cols-2 
-                      md:grid-cols-3 lg:grid-cols-4 gap-4 mt-20 mb-20'>
-        {tools.map((tool) => (
-          <div key={tool.id} className='tool-item'>
-            <ToolCardComponent tool={tool} />
-          </div>
-        ))}
+      <h1 className='text-2xl font-bold mb-4 text-center'>
+        Discover Your Ideal Tool Here!
+      </h1>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-scroll mb-16'>
+        { toolCategory === '' ?
+          tools
+            .map((tool) => (
+              <div key={tool.id} className='tool-item'>
+                <ToolCardComponent tool={tool} />
+              </div>
+            )) :
+          tools
+            .filter((tool) => tool.toolCategoryId === toolCategory)
+            .map((tool) => (
+              <div key={tool.id} className='tool-item'>
+                <ToolCardComponent tool={tool} />
+              </div>
+            ))}
       </div>
     </div>
   );

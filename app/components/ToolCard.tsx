@@ -32,7 +32,7 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
 
       const responseData = await response.json();
       console.log('WishList created', responseData); // leave this one for debugging later :)
-      
+
     } catch (error) {
       console.error('Error adding to wishlist', error);
     }
@@ -41,7 +41,7 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
   return (
     <div className=" border-slate-50 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <Link href={`/tools/${tool.id}`}>
-        <div className="flex h-64 rounded-md overflow-hidden bg-cover w-full bg-center " 
+        <div className="relative h-64 rounded-m overflow-hidden bg-cover w-80 bg-center "
           style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}>
         </div>
       </Link>
