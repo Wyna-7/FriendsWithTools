@@ -3,6 +3,7 @@ import ToolsToRent from './ToolsToRent';
 import SentRequests from './SentRequests';
 import ReceivedRequests from './ReceivedRequests';
 import { ToolCard as ToolType, ToolRequest as RequestType } from '../lib/types';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const fetchTools = async (ownerId: string): Promise<ToolType[]> => {
   try {
@@ -58,42 +59,73 @@ const RentRented = () => {
     setActiveComponent(component);
   };
 
+//   return (
+//     <div className='flex justify-around items-center'>
+//       <div>
+//         <button
+//           className={`w-40 rounded-none rounded-tl-lg rounded-bl-lg px-4 py-2 ${
+//             activeComponent === 'toolsToRent'
+//               ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
+//               : 'bg-gray-200 text-gray-700'
+//           } transition ease-in-out duration-500`}
+//           onClick={() => handleClick('toolsToRent')}
+//         >
+//           My Listed Tools
+//         </button>
+//         <button
+//           className={`w-40 rounded-none px-4 py-2 ${
+//             activeComponent === 'sentRequests'
+//               ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
+//               : 'bg-gray-200 text-gray-700'
+//           } transition ease-in-out duration-500`}
+//           onClick={() => handleClick('sentRequests')}
+//         >
+//           Sent Requests
+//         </button>
+//         <button
+//           className={`w-40 rounded-none rounded-tr-lg rounded-br-lg px-4 py-2 ${
+//             activeComponent === 'receivedRequests'
+//               ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
+//               : 'bg-gray-200 text-gray-700'
+//           } transition ease-in-out duration-500`}
+//           onClick={() => handleClick('receivedRequests')}
+//         >
+//           Received Requests
+//         </button>
+//         {activeComponent === 'toolsToRent' && <ToolsToRent tools={tools} />}
+//         {activeComponent === 'sentRequests' && <SentRequests requests={sentRequests} />}
+//         {activeComponent === 'receivedRequests' && <ReceivedRequests requests={receivedRequests} />}
+//       </div>
+//     </div>
+//   );
+  // };
+  
   return (
-    <div className='flex justify-around items-center'>
-      <div>
-        <button
-          className={`w-40 rounded-none rounded-tl-lg rounded-bl-lg px-4 py-2 ${
-            activeComponent === 'toolsToRent'
-              ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
-              : 'bg-gray-200 text-gray-700'
-          } transition ease-in-out duration-500`}
-          onClick={() => handleClick('toolsToRent')}
-        >
-          My Listed Tools
-        </button>
-        <button
-          className={`w-40 rounded-none px-4 py-2 ${
-            activeComponent === 'sentRequests'
-              ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
-              : 'bg-gray-200 text-gray-700'
-          } transition ease-in-out duration-500`}
-          onClick={() => handleClick('sentRequests')}
-        >
-          Sent Requests
-        </button>
-        <button
-          className={`w-40 rounded-none rounded-tr-lg rounded-br-lg px-4 py-2 ${
-            activeComponent === 'receivedRequests'
-              ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
-              : 'bg-gray-200 text-gray-700'
-          } transition ease-in-out duration-500`}
-          onClick={() => handleClick('receivedRequests')}
-        >
-          Received Requests
-        </button>
-        {activeComponent === 'toolsToRent' && <ToolsToRent tools={tools} />}
-        {activeComponent === 'sentRequests' && <SentRequests requests={sentRequests} />}
-        {activeComponent === 'receivedRequests' && <ReceivedRequests requests={receivedRequests} />}
+    <div className="flex flex-col h-screen">
+      <header className='fixed z-40 w-full flex items-center justify-center top-0 border-t border-grey h-20 shadow-md bg-darkGreen'>
+        <h1 className='text-center text-xl font-bold text-white'>Tools</h1>
+      </header>
+      <div className='mt-20'>
+        <Tabs defaultValue='toolsToRent' onValueChange={(value) => setActiveComponent(value)} className="fixed w-full top-20 z-30 bg-white shadow-md">
+          <TabsList>
+            <TabsTrigger value='toolsToRent'>My Listed Tools</TabsTrigger>
+            <TabsTrigger value='sentRequests'>Sent Requests</TabsTrigger>
+            <TabsTrigger value='receivedRequests'>Received Requests</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+      <div className='mt-10 flex-1 overflow-y-auto mb-20'>
+        <Tabs defaultValue='toolsToRent' value={activeComponent} onValueChange={setActiveComponent}>
+          <TabsContent value='toolsToRent'>
+            <ToolsToRent tools={tools} />
+          </TabsContent>
+          <TabsContent value='sentRequests'>
+            <SentRequests requests={sentRequests} />
+          </TabsContent>
+          <TabsContent value='receivedRequests'>
+            <ReceivedRequests requests={receivedRequests} />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

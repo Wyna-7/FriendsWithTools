@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ToolRequest as RequestType, ToolCard as ToolType } from '../lib/types';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button'; // Adjust the import path based on your project structure
+import { FaChevronDown } from 'react-icons/fa'; // Import the arrow icon
+
 
 const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
   const [statusFilter, setStatusFilter] = useState<string>('pending');
@@ -27,8 +31,8 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
     }
   }, [filteredRequests]);
 
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatusFilter(event.target.value);
+  const handleStatusChange = (status: string) => {
+    setStatusFilter(status);
   };
 
   const handleUpdateStatus = async (requestId: string, status: string) => {
@@ -55,15 +59,25 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <select
-        value={statusFilter}
-        onChange={handleStatusChange}
-        className="mb-4 p-2 border rounded"
-      >
-        <option value="pending">Pending</option>
-        <option value="accepted">Accepted</option>
-        <option value="declined">Declined</option>
-      </select>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button className="mb-4 p-2 border rounded flex items-center bg-gray-200 hover:bg-gray-300 text-black">
+            {statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
+            <FaChevronDown className="ml-2 text-gray-500" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onSelect={() => handleStatusChange('pending')}>
+            Pending
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => handleStatusChange('accepted')}>
+            Accepted
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => handleStatusChange('declined')}>
+            Declined
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <div className="flex flex-wrap justify-center">
         {tools.map(({ tool, request }) => (
           <div key={request.id} className="border-slate-50 border-4 p-4 rounded-xl shadow-md flex flex-col items-center m-4">
@@ -86,13 +100,13 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
             {request.status === 'pending' && (
               <div className="flex space-x-4">
                 <button
-                  className="bg-green-500 text-white py-2 px-4 rounded mt-2"
+                  className="bg-lightGreen text-white py-2 px-4 rounded mt-2"
                   onClick={() => handleUpdateStatus(request.id, 'accepted')}
                 >
                   Accept
                 </button>
                 <button
-                  className="bg-red-500 text-white py-2 px-4 rounded mt-2"
+                  className="bg-red-400 text-white py-2 px-4 rounded mt-2"
                   onClick={() => handleUpdateStatus(request.id, 'declined')}
                 >
                   Decline
@@ -105,5 +119,6 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
     </div>
   );
 };
+
 
 export default ReceivedRequests;

@@ -46,7 +46,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
 
       {request.status === 'pending' && (
         <button
-          className="bg-red-500 text-white py-2 px-4 rounded mt-2"
+          className="bg-red-400 text-white py-2 px-4 rounded mt-2"
           onClick={handleDeleteClick}
         >
           Delete Request
