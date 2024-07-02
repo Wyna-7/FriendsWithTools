@@ -58,47 +58,6 @@ const RentRented = () => {
   const handleClick = (component: string) => {
     setActiveComponent(component);
   };
-
-//   return (
-//     <div className='flex justify-around items-center'>
-//       <div>
-//         <button
-//           className={`w-40 rounded-none rounded-tl-lg rounded-bl-lg px-4 py-2 ${
-//             activeComponent === 'toolsToRent'
-//               ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
-//               : 'bg-gray-200 text-gray-700'
-//           } transition ease-in-out duration-500`}
-//           onClick={() => handleClick('toolsToRent')}
-//         >
-//           My Listed Tools
-//         </button>
-//         <button
-//           className={`w-40 rounded-none px-4 py-2 ${
-//             activeComponent === 'sentRequests'
-//               ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
-//               : 'bg-gray-200 text-gray-700'
-//           } transition ease-in-out duration-500`}
-//           onClick={() => handleClick('sentRequests')}
-//         >
-//           Sent Requests
-//         </button>
-//         <button
-//           className={`w-40 rounded-none rounded-tr-lg rounded-br-lg px-4 py-2 ${
-//             activeComponent === 'receivedRequests'
-//               ? 'bg-darkGreen text-white md:hover:bg-lightGreen'
-//               : 'bg-gray-200 text-gray-700'
-//           } transition ease-in-out duration-500`}
-//           onClick={() => handleClick('receivedRequests')}
-//         >
-//           Received Requests
-//         </button>
-//         {activeComponent === 'toolsToRent' && <ToolsToRent tools={tools} />}
-//         {activeComponent === 'sentRequests' && <SentRequests requests={sentRequests} />}
-//         {activeComponent === 'receivedRequests' && <ReceivedRequests requests={receivedRequests} />}
-//       </div>
-//     </div>
-//   );
-  // };
   
   return (
     <div className="flex flex-col h-screen">
