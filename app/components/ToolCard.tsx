@@ -7,7 +7,8 @@ import {
 import Link from 'next/link';
 
 export interface ToolCardProps {
-  tool: ToolCard;
+  tool: ToolType;
+  query?: string
 }
 
 const ToolCardComponent = ({ tool}: ToolCardProps) => {

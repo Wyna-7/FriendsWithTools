@@ -62,6 +62,7 @@ async function main () {
       toolCategoryId: toolCategories[0].id,
       toolrequests: [],
       wishlists: [],
+      active: true
     },
     {
       id: uuidv4(),
@@ -79,6 +80,7 @@ async function main () {
       toolCategoryId: toolCategories[1].id,
       toolrequests: [],
       wishlists: [],
+      active: true
     }
   ];
 
@@ -214,6 +216,7 @@ async function main () {
         available: tool.available,
         ownerId: tool.ownerId,
         toolCategoryId: tool.toolCategoryId,
+        active: tool.active,
         reviews: {
           createMany: {
             data: tool.reviews.map(review => ({

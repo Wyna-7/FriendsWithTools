@@ -32,6 +32,7 @@ export type ToolCard = {
   toolCategoryId: string;
   wishlists: ToolsOnWishlists[];
   toolrequests: ToolRequest[];
+  active: boolean;
 };
 
 export type WishList = {

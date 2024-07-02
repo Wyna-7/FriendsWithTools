@@ -29,18 +29,21 @@ model User {
 }
 
 model ToolCard {
-  id             String             @id @default(uuid())
-  name           String
-  description    String
-  location       String
-  dailyRate      Int
-  weeklyRate     Int?
-  monthlyRate    Int?
-  picture        String?
-  liked          Boolean
-  available      Boolean
-  reviews        ToolsReviews[]
+  id          String         @id @default(uuid())
+  name        String
+  description String
+  location    String
+  dailyRate   Int
+  weeklyRate  Int?
+  monthlyRate Int?
+  picture     String?
+  liked       Boolean
+  available   Boolean
+  reviews     ToolsReviews[] 
   toolrequests    ToolRequest[]
+  active        Boolean        @default(true)
+
+
   ownerId        String
   owner          User              @relation(fields: [ownerId], references: [id])
   toolCategoryId String
