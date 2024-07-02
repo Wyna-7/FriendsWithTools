@@ -25,22 +25,16 @@ const ToolsPage = ({
   const { toolCategory, setToolCategory } = useToolCategoryStore((state) => state);
 
 
-
   console.log('tool category', toolCategory);
 
-  // const searchParamTest = useSearchParams();
   const query = searchParams?.query || '';
-  const category = searchParams?.category || '';
-  console.log('query', query);
-  console.log('categories', category);
-  // const search = searchParamTest.get('query');
-  // console.log('search', query);
-  console.log('search params', searchParams);
+  // const category = searchParams?.category || '';
+
 
   useEffect(() => {
     const fetchAllTools = async () => {
       try {
-        // const response = await fetch(`/api/search?query=${search}`);
+
         const response = await fetch(`/api/search?query=${query}`);
 
         const data: ToolCard[] = await response.json();
@@ -67,22 +61,10 @@ const ToolsPage = ({
       }
     };
 
-    // const fetchCategory = async () => {
-    //   try {
-    //     const response = await fetch('/api/category={category}');
-    //     const data: ToolCard[] = await response.json();
-    //     setToolCategory(data);
-    //     setLoading(false);
-    //   } catch (error) {
-    //     console.error('Failed to fetch tools:', error);
-    //     setLoading(false);
-    //   }
-    // };
-
     fetchAllTools();
     fetchFavTools();
-    // fetchCategory();
-  }, [query, category]);
+
+  }, [query]);
 
   useEffect(() => {
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -9,12 +9,10 @@ import {
 } from '@/components/ui/carousel';
 import { useCategoriesStore } from '../lib/providers/categories-store-provider';
 import { useToolCategoryStore } from '../lib/stores/toolCategory-store';
-import { ToolCard } from '../lib/types';
 
 const CategoriesCarousel = () => {
   const { categories } = useCategoriesStore((state) => state);
 
-  // const [toolCategory, setToolCategory] = useState('');
   const { toolCategory, setToolCategory} = useToolCategoryStore((state) => state);
   console.log('hello', toolCategory);
   const handleCategory = (categoryId: string) => {
@@ -27,11 +25,11 @@ const CategoriesCarousel = () => {
   };
 
 
-  useEffect(() => {
-    if (categories.length > 0) {
-      categories.forEach((category) => console.log(category.categoryName));
-    }
-  }, [categories]);
+  // useEffect(() => {
+  //   if (categories.length > 0) {
+  //     categories.forEach((category) => console.log(category.categoryName));
+  //   }
+  // }, [categories]);
 
   return (
 
@@ -39,7 +37,7 @@ const CategoriesCarousel = () => {
       <CarouselContent>
         {categories.map((category) => (
           <CarouselItem
-            className='text-darkGreen font-semibold cursor-pointer sm: basis-4/4 md:basis-1/8 lg:basis-4/8'
+            className='text-darkGreen font-semibold cursor-pointer sm: basis-4/4 md:basis-2/8 lg:basis-4/8 pl-8'
             key={category.id}
             onClick={() => handleCategory(category.id)}
           >
@@ -50,8 +48,6 @@ const CategoriesCarousel = () => {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-
-
   );
 };
 
