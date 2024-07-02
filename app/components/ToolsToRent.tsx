@@ -11,8 +11,12 @@ const ToolsToRent = ({ tools }: { tools: ToolType[] }) => {
 
   return (
     <div className="flex flex-wrap justify-center">
-      {tools.map((tool) => (
-        <ToolCardComponent key={tool.id} tool={tool} query={''} />
+      {toolsList.map((tool) => (
+        <ToolToRentCard
+          key={tool.id}
+          tool={tool}
+          onDelete={handleDelete}
+        />
       ))}
     </div>
   );

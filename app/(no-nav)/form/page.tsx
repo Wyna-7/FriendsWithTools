@@ -31,7 +31,7 @@ const Form = () => {
     picture: '', // Added for picture state
     liked: false,
     available: true,
-    ownerId: 'eeeeeee',
+    ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // actual owner id
     reviews: [],
     toolCategoryId: '',
     toolrequests: [],
@@ -123,8 +123,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: 'b37e33ba-18c1-4df3-93d5-2adad25ac237', // Replace with the actual
-        id: uuidv4(),
+        ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],

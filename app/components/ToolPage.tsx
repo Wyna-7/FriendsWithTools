@@ -3,13 +3,12 @@ import { ToolCard } from '../lib/types';
 import Link from 'next/link';
 
 
-export interface ToolCardProps {
+export interface ToolPageProps {
   tool: ToolCard;
 }
 
-const ToolCardComponent = ({ tool }: ToolCardProps) => {
+const ToolPageComponent = ({ tool }: ToolPageProps) => {
   const defaultImage = 'https://shorturl.at/PyeKu';
-  const testUserId = process.env.HARDCODED_ID;;
   const handleRentClick = async () => {
     try {
       const response = await fetch('/api/myRequests', {
@@ -19,13 +18,8 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
         },
         body: JSON.stringify({
           toolId: tool.id,
-<<<<<<< HEAD
-          userId: '4e25264b-9404-46b5-9b27-549f6af6c72f', // Replace with the actual user ID
-          status: 'accepted',
-=======
-          userId: '391442ac-518b-4d4e-a089-e53871ad22b4', // Replace with the actual user ID
+          userId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual user ID
           status: 'pending',
->>>>>>> febf035a2d7d02fc33ab3954c73c4c50bb0459c8
         }),
       });
 
@@ -97,4 +91,4 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
     </>
   );
 };
-export default ToolCardComponent;
+export default ToolPageComponent;
