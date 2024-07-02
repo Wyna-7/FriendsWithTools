@@ -7,7 +7,7 @@ export async function GET (request: NextRequest) {
 
   
   try {
-    const wishList: WishList= await prisma.wishList.findFirst({ where: { ownerId: process.env.CURRENT_USERID }, include: {list: true} });
+    const wishList: WishList= await prisma.wishList.findFirst({ where: { ownerId: process.env.CURRENT_USERID }, include: {list: {include: {owner: true}}} });
 
     
     return NextResponse.json(wishList.list);

@@ -78,4 +78,4 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
   );
 };
 
-export default ToolPage;
+export default ToolCardComponent;

@@ -14,6 +14,7 @@ export async function GET (request: NextRequest) {
           mode: 'insensitive',
         },
       },
+      include: {owner: true}
     });
 
     return NextResponse.json(tools);

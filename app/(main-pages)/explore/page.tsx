@@ -27,6 +27,7 @@ const ToolsPage = ({
       try {
         const response = await fetch(`/api/search?query=${query}`);
         const data: ToolCard[] = await response.json();
+        
         setAllTools(data);
         setLoading(false);
       } catch (error) {
@@ -39,7 +40,6 @@ const ToolsPage = ({
       try {
         const response = await fetch('/api/wishlist');
         const data: ToolCard[] = await response.json();
-
         data.forEach((el) => {
           el.liked = true;
         });
@@ -67,12 +67,9 @@ const ToolsPage = ({
   }
 
   return (
-    <div className='container py-2 mt-40'>
-      <h1 className='text-2xl font-bold mb-4 text-center'>
-        Discover Your Ideal Tool Here!
-      </h1>
-
-			 <div className='flex flex-wrap justify-center flex-row mb-16'>
+    <div className='container mx-auto px-2 py-2'>
+      <div className='explore-list grid z-20 grid-cols-1 sm:grid-cols-2 
+                      md:grid-cols-3 lg:grid-cols-4 gap-4 mt-20 mb-20'>
         {tools.map((tool) => (
           <div key={tool.id} className='tool-item'>
             <ToolCardComponent tool={tool} />
