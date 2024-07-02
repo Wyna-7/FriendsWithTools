@@ -15,7 +15,7 @@ const config = {
       screens: {
         'laptop': '1024px',
         '2xl': '1400px',
-        'sm': '430px',
+        // 'sm': '430px',
         // => @media (min-width: 430px) iPhone 14 max pro
       },
     },

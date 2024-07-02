@@ -34,23 +34,24 @@ const CategoriesCarousel = () => {
   }, [categories]);
 
   return (
-    <div>
-      <Carousel className='w-full '>
-        <CarouselContent className="-ml-2 md:ml-10">
-          {categories.map((category) => (
-            <CarouselItem
-              className='text-darkGreen font-semibold pl-1  md:basis-1/3 lg:basis-1/3  cursor-pointer'
-              key={category.id}
-              onClick={() => handleCategory(category.id)}
-            >
-              {category.categoryName}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
-    </div>
+
+    <Carousel className='w-full'>
+      <CarouselContent>
+        {categories.map((category) => (
+          <CarouselItem
+            className='text-darkGreen font-semibold cursor-pointer sm: basis-4/4 md:basis-1/8 lg:basis-4/8'
+            key={category.id}
+            onClick={() => handleCategory(category.id)}
+          >
+            {category.categoryName}
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+
+
   );
 };
 
