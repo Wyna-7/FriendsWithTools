@@ -12,5 +12,4 @@ export type Action = {
 export const useToolCategoryStore = create<State & Action>((set) => ({
   toolCategory: '',
   setToolCategory: (toolCategory) => set(() => ({ toolCategory })),
-  resetToolCategory: () => set(() => ({ toolCategory: '' })),
 }));
