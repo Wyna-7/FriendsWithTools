@@ -39,14 +39,14 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
   };
 
   return (
-    <div className=" border-slate-50 border-4 p-4 rounded-xl shadow-md flex flex-col items-center m-4">
+    <div className="border-darkGreen border p-4 rounded-xl shadow-xl-darkGreen items-center m-4 w-80">
       <Link href={`/tools/${tool.id}`}>
-        <div className="relative h-64 rounded-m overflow-hidden bg-cover w-80 bg-center " 
+        <div className="flex h-64 rounded-md overflow-hidden bg-cover w-full bg-center " 
           style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}>
         </div>
       </Link>
-      <div className="grid grid-cols-2 gap-4 w-full mt-4">
-        <div className="flex flex-col items-start">
+      <div className="grid grid-cols-2 gap-4 w-full mt-4 mb-4">
+        <div className="flex flex-col flex-nowrap items-start">
           <p className="text-lg font-semibold">{tool.name}</p>
           <p className="text-gray-600">{tool.location}</p>
           <h2 className="text-gray-600">{tool.ownerId}</h2>
