@@ -13,8 +13,8 @@ const config = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
-        sm: '430px',
+        // '2xl': '1400px',
+        // sm: '430px',
         // => @media (min-width: 430px) iPhone 14 max pro
       },
     },

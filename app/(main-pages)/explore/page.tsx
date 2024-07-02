@@ -67,12 +67,12 @@ const ToolsPage = ({
   }
 
   return (
-    <div className='container px-2 py-2 mt-40'>
+    <div className='container py-2 mt-40'>
       <h1 className='text-2xl font-bold mb-4 text-center'>
         Discover Your Ideal Tool Here!
       </h1>
 
-			 <div className='flex flex-wrap mb-16'>
+			 <div className='flex flex-wrap justify-center flex-row mb-16'>
         {tools.map((tool) => (
           <div key={tool.id} className='tool-item'>
             <ToolCardComponent tool={tool} />
