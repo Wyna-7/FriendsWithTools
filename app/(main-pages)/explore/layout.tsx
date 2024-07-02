@@ -14,25 +14,23 @@ export const metadata: Metadata = {
   description: 'Rent tools from your neighbors',
 };
 
-export default function RootLayout ({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-  
+}) {
   return (
-    <div >
+    <div>
       <div className='fixed  z-40 w-full bg-white px-4 sm:px-6 lg:px-8'>
         <div className='w-full'>
           <div className='w-full flex justify-center'>
-            <SearchBar/>
+            <SearchBar />
           </div>
-          <div className='w-full flex justify-center'>
-            <CategoriesCarousel/>
+          <div className='w-full flex justify-center '>
+            <CategoriesCarousel />
           </div>
         </div>
       </div>
-
 
       {children}
     </div>

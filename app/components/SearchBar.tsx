@@ -4,8 +4,8 @@ import { Input } from '@/components/ui/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
-import { useCategoriesStore } from '../lib/providers/categories-store-provider';
-import { link } from 'fs';
+
+
 
 
 const SearchBar = () => {

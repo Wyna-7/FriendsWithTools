@@ -6,7 +6,8 @@ import ToolCardComponent from '../../components/ToolCard';
 import uniqBy from 'lodash/uniqBy';
 import { ToolCategory } from '@prisma/client';
 import { useSearchParams } from 'next/navigation';
-
+import { useCategoriesStore } from '../../lib/providers/categories-store-provider';
+import { useToolCategoryStore } from '@/app/lib/stores/toolCategory-store';
 const ToolsPage = ({
   searchParams,
 }: {
@@ -14,28 +15,34 @@ const ToolsPage = ({
     query?: string;
     category?: string;
   };
-
 }) => {
   const [tools, setTools] = useState<ToolCard[]>([]);
   const [allTools, setAllTools] = useState<ToolCard[]>([]);
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const { categories } = useCategoriesStore((state) => state);
+  const { toolCategory, setToolCategory } = useToolCategoryStore((state) => state);
+
+
+
+  console.log('tool category', toolCategory);
+
   // const searchParamTest = useSearchParams();
   const query = searchParams?.query || '';
   const category = searchParams?.category || '';
-  console.log(query);
-  console.log('categories',category);
+  console.log('query', query);
+  console.log('categories', category);
   // const search = searchParamTest.get('query');
   // console.log('search', query);
-
+  console.log('search params', searchParams);
 
   useEffect(() => {
     const fetchAllTools = async () => {
       try {
         // const response = await fetch(`/api/search?query=${search}`);
         const response = await fetch(`/api/search?query=${query}`);
-        console.log(response);
+
         const data: ToolCard[] = await response.json();
         setAllTools(data);
         setLoading(false);
@@ -43,7 +50,6 @@ const ToolsPage = ({
         console.error('Failed to fetch tools:', error);
         setLoading(false);
       }
-
     };
     const fetchFavTools = async () => {
       try {
@@ -73,14 +79,10 @@ const ToolsPage = ({
     //   }
     // };
 
-
     fetchAllTools();
     fetchFavTools();
     // fetchCategory();
-
   }, [query, category]);
-
-
 
   useEffect(() => {
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');
@@ -98,7 +100,7 @@ const ToolsPage = ({
       </h1>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-scroll mb-16'>
         {tools
-          .filter((tool) =>  tool.toolCategoryId === '0804c1b1-249e-4103-8065-cfbc7e2515dd')
+          .filter((tool) => tool.toolCategoryId === toolCategory)
           .map((tool) => (
             <div key={tool.id} className='tool-item'>
               <ToolCardComponent tool={tool} />
