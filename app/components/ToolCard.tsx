@@ -6,7 +6,6 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-
 export interface ToolCardProps {
   tool: ToolType;
   query?: string
@@ -40,19 +39,19 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
   };
 
   return (
-    <div className=" border-slate-50 border-4 p-4 rounded-xl shadow-md flex flex-col items-center m-4" data-testid="tool-card">
+    <div className=" border-slate-50 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <Link href={`/tools/${tool.id}`}>
-        <div className="relative h-64 rounded-m overflow-hidden bg-cover w-80 bg-center " 
+        <div className="flex h-64 rounded-md overflow-hidden bg-cover w-full bg-center " 
           style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}>
         </div>
       </Link>
-      <div className="grid grid-cols-2 gap-4 w-full mt-4">
-        <div className="flex flex-col items-start">
+      <div className="grid grid-cols-2 gap-4 w-full mt-4 mb-4">
+        <div className="flex flex-col flex-nowrap items-start">
           <p className="text-lg font-semibold">{tool.name}</p>
           <p className="text-gray-600">{tool.location}</p>
-          <h2 className="text-gray-600">{tool.ownerId}</h2>
+          <h2 className="text-gray-600">{tool.owner.name}</h2>
         </div>
-        <div className="flex flex-col items-center justify-between">
+        <div className="flex flex-col items-end justify-between">
           <h1 className="text-2xl font-semibold text-gray-900">${tool.dailyRate}</h1>
           <div className="relative text-[2rem] hover:cursor-pointer" onClick={handleLike}>{
             tool.liked ?

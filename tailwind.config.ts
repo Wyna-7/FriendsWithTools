@@ -13,9 +13,6 @@ const config = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
-        sm: '430px',
-        // => @media (min-width: 430px) iPhone 14 max pro
       },
     },
     extend: {
@@ -67,6 +64,9 @@ const config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+		 boxShadow: {
+        'xl-darkGreen': '0 10px 15px -3px rgba(16, 110, 96, 0.5), 0 4px 6px -2px rgba(16, 110, 96, 0.1)',
       },
       keyframes: {
         'accordion-down': {

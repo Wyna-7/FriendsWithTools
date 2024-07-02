@@ -19,7 +19,7 @@ const SearchBar = () => {
   }, 500);
 
   return (
-    <div className='flex justify-center pt-6 pb-6 inset-x-0 top-0 fixed bg-white z-40 mb-5'>
+    <div className='flex justify-center pt-6 pb-6 inset-x-0 top-0 fixed bg-darkGreen z-40 mb-5'>
       <div className='relative flex items-center justify-center w-11/12  '>
         <MagnifyingGlassIcon className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform stroke-2 cursor-pointer' />
         <Input
