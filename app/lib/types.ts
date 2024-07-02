@@ -27,6 +27,7 @@ export type ToolCard = {
   liked: boolean;
   available: boolean;
   reviews: ToolsReviews[];
+  owner: User;
   ownerId: string;
   toolCategoryId: string;
   wishlists: ToolsOnWishlists[];
