@@ -22,7 +22,7 @@ const SearchBar = () => {
   }, 1000);
 
   return (
-    <div className=' pt-6 pb-6 bg-white  mb-5 w-full flex items-center justify-center' >
+    <div className=' pt-6 pb-1 bg-white  mb-5 w-full flex items-center justify-center' >
       <div className='relative flex items-center justify-center w-11/12  '>
         <MagnifyingGlassIcon className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform stroke-2 cursor-pointer' />
         <Input
