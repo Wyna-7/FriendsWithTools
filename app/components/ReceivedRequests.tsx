@@ -61,7 +61,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
     <div className="flex flex-col items-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="mb-4 p-2 border rounded flex items-center bg-gray-200 hover:bg-gray-300 text-black">
+          <Button className="mb-4 p-2 border rounded flex items-center bg-gray-100 hover:bg-gray-300 text-black">
             {statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
             <FaChevronDown className="ml-2 text-gray-500" />
           </Button>

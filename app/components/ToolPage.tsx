@@ -79,9 +79,8 @@ const ToolCardComponent = ({ tool }: ToolCardProps) => {
             </div>
 
             <div className="p-4">
-              <h2 className="text-base font-semibold">Rent</h2>
               <button
-                className="bg-blue-500 text-white py-2 px-4 rounded mt-2"
+                className="bg-lightGreen text-white py-2 px-4 rounded mt-2"
                 onClick={handleRentClick}
               >
                 Rent

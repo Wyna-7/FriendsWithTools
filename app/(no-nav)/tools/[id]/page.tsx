@@ -44,12 +44,6 @@ const ToolDetailPage = () => {
   
   return (
     <div>
-      {/* <button 
-        onClick={() => router.push('/explore')} 
-        className="flex items-center justify-center w-12 h-12 text-black border-2 rounded text-2xl hover:bg-gray-700 mb-4 "
-      >
-        &lt;
-      </button> */}
       <ToolPage tool={tool} />
     </div>
   );
