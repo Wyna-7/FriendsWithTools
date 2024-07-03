@@ -8,6 +8,9 @@ import { ToolCategory } from '@prisma/client';
 import { useSearchParams } from 'next/navigation';
 import { useCategoriesStore } from '../../lib/providers/categories-store-provider';
 import { useToolCategoryStore } from '@/app/lib/stores/toolCategory-store';
+import { createUserStore } from '@/app/lib/stores/currentUser-store';
+import { useBoundStore } from '@/app/lib/stores/test-store';
+
 const ToolsPage = ({
   searchParams,
 }: {
@@ -21,14 +24,36 @@ const ToolsPage = ({
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const { categories } = useCategoriesStore((state) => state);
-  const { toolCategory, setToolCategory } = useToolCategoryStore((state) => state);
+  const { toolCategory } = useToolCategoryStore((state) => state);
+
+  // const user = useBoundStore((state) => {
+  //   console.log(state);
+  //   return (state.loggedUser);
+  // });
+
+  // console.log('user', user);
 
 
-  console.log('tool category', toolCategory);
+  // console.log('tool category', toolCategory);
 
   const query = searchParams?.query || '';
-  // const category = searchParams?.category || '';
+
+  useEffect(() => {
+    async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        console.log('logged user',data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+  });
+
+
+
+
 
 
   useEffect(() => {

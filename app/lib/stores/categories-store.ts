@@ -1,9 +1,6 @@
 import { createStore } from 'zustand/vanilla';
+import { Category } from '../types';
 
-export type Category = {
-  id: string;
-  categoryName: string | null;
-};
 
 export type CategoriesState = {
   categories: Category[];
