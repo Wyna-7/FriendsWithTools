@@ -4,56 +4,58 @@ import SentRequests from './SentRequests';
 import ReceivedRequests from './ReceivedRequests';
 import { ToolCard as ToolType, ToolRequest as RequestType } from '../lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useCurrentUserStore } from '../lib/stores/test-store';
 
-const fetchTools = async (ownerId: string): Promise<ToolType[]> => {
-  try {
-    const response = await fetch(`/api/myTools?ownerId=${ownerId}`);
-    const data = await response.json();
-    console.log('Tools:', data);
-    return data;
-  } catch (error) {
-    console.error('Failed to fetch tools:', error);
-    return [];
-  }
-};
-
-const fetchRequests = async (userId: string): Promise<{ sent: RequestType[], received: RequestType[] }> => {
-  try {
-    const response = await fetch(`/api/myRequests?userId=${userId}`);
-    const data = await response.json();
-    console.log('Requests:', data);
-
-    const sentRequests = data.filter((request: RequestType) => request.userId === userId);
-    const receivedRequests = data.filter((request: RequestType) => request.userId == userId);
-
-    return { sent: sentRequests, received: receivedRequests };
-  } catch (error) {
-    console.error('Failed to fetch requests:', error);
-    return { sent: [], received: [] };
-  }
-};
 
 const RentRented = () => {
   const [activeComponent, setActiveComponent] = useState<string>('toolsToRent');
   const [tools, setTools] = useState<ToolType[]>([]);
   const [sentRequests, setSentRequests] = useState<RequestType[]>([]);
   const [receivedRequests, setReceivedRequests] = useState<RequestType[]>([]);
+  const { currentUserId } = useCurrentUserStore((state) => state);
 
-  const userId = 'af8f66a5-2594-4f7a-881e-ae88585dc3f8'; // Replace with the actual userId
-
+  console.log('currentUserId from RentRented', currentUserId);
   useEffect(() => {
-    const ownerId = 'af8f66a5-2594-4f7a-881e-ae88585dc3f8'; // Replace with the actual ownerId
+
+    const fetchTools = async (): Promise<ToolType[]> => {
+      try {
+        const response = await fetch(`/api/myTools/${currentUserId}`);
+        const data = await response.json();
+        console.log('Tools:', data);
+        return data;
+      } catch (error) {
+        console.error('Failed to fetch tools:', error);
+        return [];
+      }
+    };
+
+    const fetchRequests = async (): Promise<{ sent: RequestType[], received: RequestType[] }> => {
+      try {
+        const response = await fetch(`/api/myRequestsUser/${currentUserId}`);
+        const data = await response.json();
+        console.log('Requests:', data);
+
+        const sentRequests = data.filter((request: RequestType) => request.userId === currentUserId);
+        const receivedRequests = data.filter((request: RequestType) => request.userId === currentUserId);
+
+        return { sent: sentRequests, received: receivedRequests };
+      } catch (error) {
+        console.error('Failed to fetch requests:', error);
+        return { sent: [], received: [] };
+      }
+    };
+
 
     if (activeComponent === 'toolsToRent') {
-      fetchTools(ownerId).then(setTools);
+      fetchTools().then((data) => setTools(data));
     } else {
-      fetchRequests(userId).then(data => {
+      fetchRequests().then(data => {
         console.log('Fetched requests:', data);
         setSentRequests(data.sent);
         setReceivedRequests(data.received);
       });
     }
-  }, [activeComponent]);
+  }, [sentRequests, activeComponent, receivedRequests,currentUserId]);
 
 
   return (
