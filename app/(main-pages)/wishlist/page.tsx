@@ -8,7 +8,23 @@ const WishlistPage = () => {
 
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { currentUserId } = useCurrentUserStore((state) => state);
+  const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
+
+  useEffect(() => {
+    const fetchCurrentUser =  async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        setCurrentUserId(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentUser();
+  },[]);
+
+
+
 
   useEffect(() => {
     const fetchTools = async () => {

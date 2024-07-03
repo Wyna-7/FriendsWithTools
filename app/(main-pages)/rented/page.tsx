@@ -1,12 +1,27 @@
 'use client';
-import React from 'react';
-import NavBar from '../../components/NavBar';
+import React, { useEffect } from 'react';
 import RentRented from '@/app/components/RentRented';
-import {  PlusCircleIcon} from '@heroicons/react/24/outline'; 
+import {  PlusCircleIcon} from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 
 const RentedPage = () => {
-  
+
+  const {setCurrentUserId } = useCurrentUserStore((state) => state);
+
+  useEffect(() => {
+    const fetchCurrentUser =  async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        setCurrentUserId(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentUser();
+  },[]);
+
   return (
     <div>
       <div>

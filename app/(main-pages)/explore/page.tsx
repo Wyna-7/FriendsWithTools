@@ -20,14 +20,13 @@ const ToolsPage = ({
   const [allTools, setAllTools] = useState<ToolCard[]>([]);
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const query = searchParams?.query || '';
 
   const { toolCategory } = useToolCategoryStore((state) => state);
   const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
 
-  const query = searchParams?.query || '';
 
   useEffect(() => {
-    console.log('inside useEffect');
     const fetchCurrentUser =  async () => {
       try {
         const response = await fetch('/api/loggedUser');
@@ -39,12 +38,6 @@ const ToolsPage = ({
     };
     fetchCurrentUser();
   },[]);
-
-
-  console.log('currentUserId-->',currentUserId);
-
-
-
 
   useEffect(() => {
     const fetchAllTools = async () => {
