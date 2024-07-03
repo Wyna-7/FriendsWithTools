@@ -47,7 +47,7 @@ const RentRented = () => {
 
 
     if (activeComponent === 'toolsToRent') {
-      fetchTools().then(setTools);
+      fetchTools().then((data) => setTools(data));
     } else {
       fetchRequests().then(data => {
         console.log('Fetched requests:', data);
@@ -55,7 +55,7 @@ const RentRented = () => {
         setReceivedRequests(data.received);
       });
     }
-  }, [activeComponent, currentUserId]);
+  }, [sentRequests, activeComponent, receivedRequests,currentUserId]);
 
 
   return (
