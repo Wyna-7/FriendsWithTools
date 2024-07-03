@@ -10,6 +10,12 @@ const WishlistPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
 
+  const onHeartClick = (tool: ToolCard) => {
+    if (!tool.liked) {
+      setFavTools(favTools.filter(el => el.id !== tool.id));
+    }
+  };
+
   useEffect(() => {
     const fetchCurrentUser =  async () => {
       try {
@@ -22,9 +28,6 @@ const WishlistPage = () => {
     };
     fetchCurrentUser();
   },[]);
-
-
-
 
   useEffect(() => {
     const fetchTools = async () => {
@@ -43,9 +46,10 @@ const WishlistPage = () => {
         setLoading(false);
       }
     };
-    fetchTools();
 
-  }, []);
+    if (currentUserId) fetchTools();
+
+  }, [currentUserId]);
 
 
   if (loading) {
@@ -69,7 +73,7 @@ const WishlistPage = () => {
           :
           favTools.map((tool) => (
             <div key={tool.id} className='tool-item'>
-              <ToolCardComponent tool={tool} />
+              <ToolCardComponent tool={tool} onHeartClick={onHeartClick} />
             </div>
           ))}
       </div>
