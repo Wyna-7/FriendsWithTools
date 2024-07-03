@@ -5,6 +5,7 @@ import {
   HeartIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useCurrentUserStore } from '../lib/stores/test-store';
 
 export interface ToolCardProps {
   tool: ToolType;
@@ -15,14 +16,14 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
   const defaultImage = 'https://shorturl.at/PyeKu'; //place holder image
 
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const { currentUserId } = useCurrentUserStore((state) => state);
   const handleLike = async () => {
     //to instantly change heart color
     tool.liked = tool.liked ? false : true;
     setIsFavorite(isFavorite ? false : true);
     //to post card to wishlist -> this method handles both add & remove from user wishlist
     try {
-      const response = await fetch('/api/wishlist', {
+      const response = await fetch(`/api/wishlist/${currentUserId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

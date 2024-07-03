@@ -4,12 +4,8 @@ import { useEffect, useState } from 'react';
 import { ToolCard } from '../../lib/types';
 import ToolCardComponent from '../../components/ToolCard';
 import uniqBy from 'lodash/uniqBy';
-import { ToolCategory } from '@prisma/client';
-import { useSearchParams } from 'next/navigation';
-import { useCategoriesStore } from '../../lib/providers/categories-store-provider';
 import { useToolCategoryStore } from '@/app/lib/stores/toolCategory-store';
-import { createUserStore } from '@/app/lib/stores/currentUser-store';
-import { useBoundStore } from '@/app/lib/stores/test-store';
+import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 
 const ToolsPage = ({
   searchParams,
@@ -19,39 +15,33 @@ const ToolsPage = ({
     category?: string;
   };
 }) => {
+  // const {userId} = useParams();
   const [tools, setTools] = useState<ToolCard[]>([]);
   const [allTools, setAllTools] = useState<ToolCard[]>([]);
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const { toolCategory } = useToolCategoryStore((state) => state);
-
-  // const user = useBoundStore((state) => {
-  //   console.log(state);
-  //   return (state.loggedUser);
-  // });
-
-  // console.log('user', user);
-
-
-  // console.log('tool category', toolCategory);
+  const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
 
   const query = searchParams?.query || '';
 
   useEffect(() => {
-    async () => {
+    console.log('inside useEffect');
+    const fetchCurrentUser =  async () => {
       try {
         const response = await fetch('/api/loggedUser');
         const data = await response.json();
-        console.log('logged user',data);
+        setCurrentUserId(data.id);
       } catch (error) {
         console.log(error);
       }
     };
+    fetchCurrentUser();
+  },[]);
 
-  });
 
-
+  console.log('currentUserId-->',currentUserId);
 
 
 
@@ -73,7 +63,8 @@ const ToolsPage = ({
     };
     const fetchFavTools = async () => {
       try {
-        const response = await fetch('/api/wishlist');
+        console.log('HELLO',currentUserId);
+        const response = await fetch(`/api/wishlist/${currentUserId}`);
         const data: ToolCard[] = await response.json();
         data.forEach((el) => {
           el.liked = true;
@@ -90,7 +81,7 @@ const ToolsPage = ({
     fetchAllTools();
     fetchFavTools();
 
-  }, [query]);
+  }, [query, currentUserId]);
 
   useEffect(() => {
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');

@@ -15,14 +15,14 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCategoriesStore } from '@/app/lib/providers/categories-store-provider';
-import { Ultra } from 'next/font/google';
+import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 const Form = () => {
 
   const {categories} = useCategoriesStore(
     (state) => state,
   );
 
-
+  const { currentUserId } = useCurrentUserStore((state) => state);
   const [input, setInput] = useState<Partial <ToolCard>>({
     name: '',
     description: '',
@@ -31,7 +31,7 @@ const Form = () => {
     picture: '', // Added for picture state
     liked: false,
     available: true,
-    ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // actual owner id
+    ownerId: currentUserId, // actual owner id
     reviews: [],
     toolCategoryId: '',
     toolrequests: [],
@@ -123,7 +123,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual
+        ownerId: currentUserId, // Replace with the actual
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],

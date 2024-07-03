@@ -1,23 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '../../../prisma/db'; 
+import prisma from '../../../prisma/db';
 
-export async function GET (request: NextRequest) {
+export async function GET (request: NextRequest, { params }: { params: { currentUserId: string } }) {
   try {
-    const { searchParams } = new URL(request.url);
-    const ownerId = searchParams.get('ownerId');
-
-    if (!ownerId) {
-      return NextResponse.json({ error: 'ownerId query parameter is required' }, { status: 400 });
-    }
-
+    const {currentUserId} = params;
+    console.log('currentUserId from MyTools API', currentUserId);
     const tools = await prisma.toolCard.findMany({
       where: {
-        ownerId: ownerId,
+        ownerId: currentUserId,
       },
       include: {
-        owner: true, // 
-        ToolCategory: true, // 
-        reviews: true, // 
+        owner: true,
+        ToolCategory: true,
+        reviews: true,
       },
     });
 
