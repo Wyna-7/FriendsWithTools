@@ -15,6 +15,8 @@ const RentRented = () => {
   const { currentUserId } = useCurrentUserStore((state) => state);
 
   console.log('currentUserId from RentRented', currentUserId);
+
+  
   useEffect(() => {
 
     const fetchTools = async (): Promise<ToolType[]> => {
@@ -45,17 +47,20 @@ const RentRented = () => {
       }
     };
 
-
-    if (activeComponent === 'toolsToRent') {
-      fetchTools().then((data) => setTools(data));
-    } else {
-      fetchRequests().then(data => {
-        console.log('Fetched requests:', data);
-        setSentRequests(data.sent);
-        setReceivedRequests(data.received);
-      });
+    console.log('activeCopm', activeComponent);
+    if (currentUserId) {
+      if (activeComponent === 'toolsToRent') {
+        fetchTools().then((data) => setTools(data));
+      } else {
+        fetchRequests().then(data => {
+          console.log('Fetched requests:', data);
+          setSentRequests(data.sent);
+          setReceivedRequests(data.received);
+        });
+      }
     }
-  }, [sentRequests, activeComponent, receivedRequests,currentUserId]);
+  }, [activeComponent, currentUserId]);
+
 
 
   return (
@@ -64,25 +69,23 @@ const RentRented = () => {
         <h1 className='text-center text-xl font-bold text-white'>Tools</h1>
       </header>
       <div className='mt-20'>
-        <Tabs defaultValue='toolsToRent' onValueChange={(value) => setActiveComponent(value)} className="fixed w-full top-20 z-30 bg-white shadow-md">
-          <TabsList>
+        <Tabs defaultValue='toolsToRent' value={activeComponent} onValueChange={(value) => setActiveComponent(value)} className="w-full top-20 bg-white shadow-md">
+          <TabsList className="fixed z-40">
             <TabsTrigger value='toolsToRent'>My Listed Tools</TabsTrigger>
             <TabsTrigger value='sentRequests'>Sent Requests</TabsTrigger>
             <TabsTrigger value='receivedRequests'>Received Requests</TabsTrigger>
           </TabsList>
-        </Tabs>
-      </div>
-      <div className='mt-10 flex-1 overflow-y-auto mb-20'>
-        <Tabs defaultValue='toolsToRent' value={activeComponent} onValueChange={setActiveComponent}>
-          <TabsContent value='toolsToRent'>
-            <ToolsToRent tools={tools} />
-          </TabsContent>
-          <TabsContent value='sentRequests'>
-            <SentRequests requests={sentRequests} />
-          </TabsContent>
-          <TabsContent value='receivedRequests'>
-            <ReceivedRequests requests={receivedRequests} />
-          </TabsContent>
+          <div className='pt-10 flex-1 overflow-scroll mb-20'>
+            <TabsContent value='toolsToRent'>
+              <ToolsToRent tools={tools} />
+            </TabsContent>
+            <TabsContent value='sentRequests'>
+              <SentRequests requests={sentRequests} />
+            </TabsContent>
+            <TabsContent value='receivedRequests'>
+              <ReceivedRequests requests={receivedRequests} />
+            </TabsContent>
+          </div>
         </Tabs>
       </div>
     </div>
