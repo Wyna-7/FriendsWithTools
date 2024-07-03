@@ -31,7 +31,7 @@ const RentRented = () => {
 
     const fetchRequests = async (): Promise<{ sent: RequestType[], received: RequestType[] }> => {
       try {
-        const response = await fetch(`/api/myRequests/${currentUserId}`);
+        const response = await fetch(`/api/myRequestsUser/${currentUserId}`);
         const data = await response.json();
         console.log('Requests:', data);
 
