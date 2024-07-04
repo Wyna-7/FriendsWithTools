@@ -39,7 +39,7 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
   };
 
   return (
-    <div className=" border-slate-50 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
+    <div className=" border-slate-50 min-w-80 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <Link href={`/tools/${tool.id}`}>
         <div className="relative h-64 rounded-xl overflow-hidden bg-cover w-80 bg-center "
           style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}>
