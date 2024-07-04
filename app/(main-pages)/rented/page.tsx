@@ -2,11 +2,11 @@
 import React from 'react';
 import NavBar from '../../components/NavBar';
 import RentRented from '@/app/components/RentRented';
-import {  PlusCircleIcon} from '@heroicons/react/24/outline'; 
+import {  PlusCircleIcon} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 const RentedPage = () => {
-  
+
   return (
     <div>
       <div>
