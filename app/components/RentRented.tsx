@@ -16,7 +16,7 @@ const RentRented = () => {
 
   console.log('currentUserId from RentRented', currentUserId);
 
-  
+
   useEffect(() => {
 
     const fetchTools = async (): Promise<ToolType[]> => {
@@ -64,13 +64,13 @@ const RentRented = () => {
 
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col justify-items-center h-screen">
       <header className='fixed z-40 w-full flex items-center justify-center top-0 border-t border-grey h-20 shadow-md bg-darkGreen'>
         <h1 className='text-center text-xl font-bold text-white'>Tools</h1>
       </header>
-      <div className='mt-20'>
-        <Tabs defaultValue='toolsToRent' value={activeComponent} onValueChange={(value) => setActiveComponent(value)} className="w-full top-20 bg-white shadow-md">
-          <TabsList className="fixed z-40">
+      <div className='mt-20 flex justify-center'>
+        <Tabs defaultValue='toolsToRent' value={activeComponent} onValueChange={(value) => setActiveComponent(value)} className="w-full top-20 bg-white shadow-md flex justify-center">
+          <TabsList className="fixed z-40 flex items-center">
             <TabsTrigger value='toolsToRent'>My Listed Tools</TabsTrigger>
             <TabsTrigger value='sentRequests'>Sent Requests</TabsTrigger>
             <TabsTrigger value='receivedRequests'>Received Requests</TabsTrigger>

@@ -22,16 +22,16 @@ const ChatView = ({ convo }: ConversationProps) => {
 
   return (
     <>
-      <header className=' flex items-center justify-start inset-x-0 top-0 border-t  border-grey h-20 shadow-md mb-1 bg-slate-200'>
+      <header className=' flex items-center justify-start inset-x-0 top-0  bg-darkGreen h-20 shadow-md mb-1 '>
         <Link href='/inbox'>
-          <ChevronLeftIcon className='h-9 w-9 border m-4' />
+          <ChevronLeftIcon className='h-9 w-9 m-4 text-white' />
         </Link>
         <img
           src='https://picsum.photos/50'
           className='rounded'
           alt={'tool picture'}
         />
-        <div className='chat-info flex-col ml-6'>
+        <div className='chat-info flex-col ml-6 text-white'>
           <p className='font-bold'>Daily rate here</p>
           <p>Tool name here</p>
         </div>

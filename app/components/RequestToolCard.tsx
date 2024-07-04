@@ -27,7 +27,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
   };
 
   return (
-    <div className="border-slate-50 border-4 p-4 rounded-xl shadow-md flex flex-col items-center m-4">
+    <div className="border-slate-50 border-4 p-4 rounded-xl shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <div
         className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}
@@ -46,7 +46,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
 
       {request.status === 'pending' && (
         <button
-          className="bg-red-400 text-white py-2 px-4 rounded mt-2"
+          className="bg-red-600 text-white py-4 px-10 rounded mt-7"
           onClick={handleDeleteClick}
         >
           Delete Request

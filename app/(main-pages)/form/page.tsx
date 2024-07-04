@@ -147,7 +147,7 @@ const Form = () => {
 
           <form
             onSubmit={handleSubmit}
-            className='flex flex-col bg-white shadow-md rounded px-8 pt-1 pb-8 mt-6 '
+            className='flex flex-col bg-white  px-8 pt-1 pb-8 mt-6 '
           >
             <label htmlFor='name' className='mb-1 mt-1'>
             Product Name
