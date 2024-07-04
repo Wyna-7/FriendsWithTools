@@ -85,3 +85,8 @@ export type ToolRequest = {
   toolId: string;
   userId: string;
 };
+
+export type Category = {
+  id: string;
+  categoryName: string | null;
+};

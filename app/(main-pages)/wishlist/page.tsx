@@ -2,22 +2,43 @@
 import ToolCardComponent from '@/app/components/ToolCard';
 import { ToolCard } from '../../lib/types';
 import React, { useEffect, useState } from 'react';
+import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 
 const WishlistPage = () => {
 
   const [favTools, setFavTools] = useState<ToolCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
+
+  const onHeartClick = (tool: ToolCard) => {
+    if (!tool.liked) {
+      setFavTools(favTools.filter(el => el.id !== tool.id));
+    }
+  };
+
+  useEffect(() => {
+    const fetchCurrentUser =  async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        setCurrentUserId(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentUser();
+  },[]);
 
   useEffect(() => {
     const fetchTools = async () => {
       try {
-        const response = await fetch('/api/wishlist');
+        const response = await fetch(`/api/wishlist/${currentUserId}`);
         const data: ToolCard[] = await response.json();
 
         data.forEach((el) => {
           el.liked = true;
         });
-        
+
         setFavTools(data);
         setLoading(false);
       } catch (error) {
@@ -25,9 +46,10 @@ const WishlistPage = () => {
         setLoading(false);
       }
     };
-    fetchTools();
 
-  }, []);
+    if (currentUserId) fetchTools();
+
+  }, [currentUserId]);
 
 
   if (loading) {
@@ -40,18 +62,18 @@ const WishlistPage = () => {
                         border-grey h-20 shadow-md  bg-darkGreen'>
         <h1 className='text-center text-xl font-bold text-white'>Wish List</h1>
       </header>
-      <div className='wishlist-list grid z-20 grid-cols-1 sm:grid-cols-2 
+      <div className='wishlist-list grid z-20 grid-cols-1 sm:grid-cols-2
                       md:grid-cols-3 lg:grid-cols-4 gap-4 mt-20 mb-20 '>
         {favTools.length === 0 ?
-          <div className='z-50 h-full flex flex-col justify-center 
+          <div className='z-50 h-full flex flex-col justify-center
                           align-middle text-center text-xl p-4 mt-56'>
-            <div>Your wish list is empty ☹</div> 
+            <div>Your wish list is empty ☹</div>
             <div>Go check some nearby tools in the explore page! </div>
           </div>
           :
           favTools.map((tool) => (
             <div key={tool.id} className='tool-item'>
-              <ToolCardComponent tool={tool} />
+              <ToolCardComponent tool={tool} onHeartClick={onHeartClick} />
             </div>
           ))}
       </div>

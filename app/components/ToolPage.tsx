@@ -1,6 +1,7 @@
 import React from 'react';
 import { ToolCard } from '../lib/types';
 import Link from 'next/link';
+import { useCurrentUserStore } from '../lib/stores/test-store';
 
 
 export interface ToolPageProps {
@@ -9,6 +10,10 @@ export interface ToolPageProps {
 
 const ToolPageComponent = ({ tool }: ToolPageProps) => {
   const defaultImage = 'https://shorturl.at/PyeKu';
+
+  const { currentUserId } = useCurrentUserStore((state) => state);
+
+
   const handleRentClick = async () => {
     try {
       const response = await fetch('/api/myRequests', {
@@ -18,7 +23,7 @@ const ToolPageComponent = ({ tool }: ToolPageProps) => {
         },
         body: JSON.stringify({
           toolId: tool.id,
-          userId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual user ID
+          userId: currentUserId, // Replace with the actual user ID
           status: 'pending',
         }),
       });
