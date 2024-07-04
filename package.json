@@ -12,8 +12,7 @@
     "lint": "next lint",
     "prisma:migrate": "prisma migrate dev --dotenv .env.local",
     "dev:server": "ts-node chat-server.ts",
-    "sockets": "DATABASE_URL=postgresql://jemimacecil:@localhost:5432/friendswithtools npx nodemon server.ts"
-
+    "sockets": "DATABASE_URL=postgresql://postgres:password@localhost:5432/friendswithtools?schema=public npx nodemon server.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.6",
@@ -31,6 +30,7 @@
     "@types/socket.io": "^3.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.1.5",
     "firebase": "^10.12.2",
     "heroicons": "^2.1.4",

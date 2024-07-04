@@ -37,7 +37,7 @@ const ToolsPage = ({
       }
     };
     fetchCurrentUser();
-  },[]);
+  },[setCurrentUserId]);
 
   useEffect(() => {
     const fetchAllTools = async () => {

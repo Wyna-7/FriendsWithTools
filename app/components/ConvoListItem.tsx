@@ -9,6 +9,7 @@ import {
 import Link from 'next/link';
 
 import { Conversation } from '../lib/types';
+import { format } from 'date-fns';
 
 export interface ConversationProps {
   convo: Conversation
@@ -33,7 +34,7 @@ const ConvoListItem = ({ convo }: ConversationProps) => {
             <p className='name font-bold'>{convo.sender.name}</p>
             <p className='last-msg text-xs text-slate-500'>{ convo.messages?.findLast(el => el)?.content? convo.messages?.findLast(el => el)?.content : 'Hello!'  }</p>
           </div>
-          <div className='last-msg-time text-xs text-slate-400 p-2 text-right ml-12'>{ convo.messages?.findLast(el => el)?.createdAt ? convo.messages?.findLast(el => el)?.createdAt : '12:30pm' }</div>
+          <div className='last-msg-time text-xs text-slate-400 p-2 text-right ml-12'>{ convo.messages?.findLast(el => el)?.createdAt ? format(convo.messages?.findLast(el => el)?.createdAt, "H':'mm") : '' }</div>
         </div>
       </Link>
     </>

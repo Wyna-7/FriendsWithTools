@@ -1,24 +1,19 @@
-// import { createServer } from 'http';
-const { createServer } = require('http')
-const { Server } = require ('socket.io')
-// import { Server } from 'socket.io';
-// import { Socket } from 'socket.io'
+const { createServer } = require('http');
+const { Server } = require ('socket.io');
 const { Socket } = require('socket.io');
-// import prisma from './prisma/db';
-// const { prisma } = require ('./prisma/db')
-const { PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const allUsers = await prisma.user.findMany()
-  console.log(allUsers)
+async function main () {
+  const allUsers = await prisma.user.findMany();
+  console.log(allUsers);
 }
 main().catch(async (e) => {
-  console.error(e)
-  await prisma.$disconnect()
-  process.exit(1)
-})
+  console.error(e);
+  await prisma.$disconnect();
+  process.exit(1);
+});
 
 const httpServer = createServer();
 
@@ -43,14 +38,12 @@ io.on('connection', (socket: typeof Socket) => {
   // Send a message to a conversation room
   socket.on('send_msg', async (data: any, conversationId: string) => {
     try {
+      console.log('data in socket', data);
       const message = await prisma.message.create({
         data: {
           content: data.content,
           authorId: data.authorId,
           conversationId: data.conversationId,
-          // content: "hello 1",
-          // authorId: "f16a2d25-a37e-4887-88a2-eec81c876cee",
-          // conversationId: "1944c145-e80e-4286-8ec7-acf81a60eb5d",
         },
       });
 
