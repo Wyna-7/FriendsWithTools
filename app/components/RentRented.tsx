@@ -61,9 +61,9 @@ const RentRented = () => {
       <header className='fixed z-40 w-full flex items-center justify-center top-0 border-t border-grey h-20 shadow-md bg-darkGreen'>
         <h1 className='text-center text-xl font-bold text-white'>Tools</h1>
       </header>
-      <div className='mt-20'>
+      <div className='mt-20 flex justify-center'>
         <Tabs defaultValue='toolsToRent' onValueChange={(value) => setActiveComponent(value)} className="fixed w-full top-20 z-30 bg-white shadow-md">
-          <TabsList>
+          <TabsList className='flex justify-center'>
             <TabsTrigger value='toolsToRent'>My Listed Tools</TabsTrigger>
             <TabsTrigger value='sentRequests'>Sent Requests</TabsTrigger>
             <TabsTrigger value='receivedRequests'>Received Requests</TabsTrigger>
