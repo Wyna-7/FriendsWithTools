@@ -39,10 +39,10 @@ const RentRented = () => {
   const [sentRequests, setSentRequests] = useState<RequestType[]>([]);
   const [receivedRequests, setReceivedRequests] = useState<RequestType[]>([]);
 
-  const userId = 'af8f66a5-2594-4f7a-881e-ae88585dc3f8'; // Replace with the actual userId
+  const userId = '02cb67ed-82f6-4ca9-b25e-ae78606d1482'; // Replace with the actual userId
 
   useEffect(() => {
-    const ownerId = 'af8f66a5-2594-4f7a-881e-ae88585dc3f8'; // Replace with the actual ownerId
+    const ownerId = '02cb67ed-82f6-4ca9-b25e-ae78606d1482'; // Replace with the actual ownerId
 
     if (activeComponent === 'toolsToRent') {
       fetchTools(ownerId).then(setTools);
@@ -57,13 +57,13 @@ const RentRented = () => {
 
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col justify-items-center h-screen">
       <header className='fixed z-40 w-full flex items-center justify-center top-0 border-t border-grey h-20 shadow-md bg-darkGreen'>
         <h1 className='text-center text-xl font-bold text-white'>Tools</h1>
       </header>
-      <div className='mt-20'>
+      <div className='mt-20 flex justify-center'>
         <Tabs defaultValue='toolsToRent' onValueChange={(value) => setActiveComponent(value)} className="fixed w-full top-20 z-30 bg-white shadow-md">
-          <TabsList>
+          <TabsList className='flex justify-center'>
             <TabsTrigger value='toolsToRent'>My Listed Tools</TabsTrigger>
             <TabsTrigger value='sentRequests'>Sent Requests</TabsTrigger>
             <TabsTrigger value='receivedRequests'>Received Requests</TabsTrigger>

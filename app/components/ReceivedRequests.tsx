@@ -58,7 +58,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mt-5">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="mb-4 p-2 border rounded flex items-center bg-gray-100 hover:bg-gray-300 text-black">
@@ -80,7 +80,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
       </DropdownMenu>
       <div className="flex flex-wrap justify-center">
         {tools.map(({ tool, request }) => (
-          <div key={request.id} className="border-slate-50 border-4 p-4 rounded-xl shadow-md flex flex-col items-center m-4">
+          <div key={request.id} className="border-slate-50 border-4 p-4 rounded-xl shadow-xl shadow-slate-400 flex flex-col items-center m-4">
             <div
               className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
               style={{ backgroundImage: `url(${tool.picture || 'https://shorturl.at/PyeKu'})` }}
@@ -98,15 +98,15 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
             </div>
 
             {request.status === 'pending' && (
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 mt-7 mb-4">
                 <button
-                  className="bg-lightGreen text-white py-2 px-4 rounded mt-2"
+                  className="bg-darkGreen text-white py-4 px-10 rounded mt-2"
                   onClick={() => handleUpdateStatus(request.id, 'accepted')}
                 >
                   Accept
                 </button>
                 <button
-                  className="bg-red-400 text-white py-2 px-4 rounded mt-2"
+                  className="bg-red-600 text-white py-4 px-10 rounded mt-2"
                   onClick={() => handleUpdateStatus(request.id, 'declined')}
                 >
                   Decline

@@ -77,11 +77,11 @@ const ToolsPage = ({
   }
 
   return (
-    <div className='container mx-auto px-2 py-2'>
+    <div className='container  mx-auto px-2 py-2'>
       <h1 className='text-2xl font-bold mb-4 text-center'>
         Discover Your Ideal Tool Here!
       </h1>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-scroll mb-16'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-scroll mt-24 mb-16'>
         { toolCategory === '' ?
           tools
             .map((tool) => (

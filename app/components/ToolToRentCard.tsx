@@ -30,9 +30,9 @@ const ToolToRentCard = ({ tool, onDelete }: ToolToRentCardProps) => {
   };
 
   return (
-    <div className="border-slate-50 border-4 p-4 rounded-xl shadow-md flex flex-col items-center m-4">
+    <div className=" border-slate-50 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <div
-        className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
+        className="relative h-64 w-80 rounded-xl overflow-hidden bg-cover  bg-center"
         style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}
       />
 
@@ -43,13 +43,13 @@ const ToolToRentCard = ({ tool, onDelete }: ToolToRentCardProps) => {
 
       <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
         <h2 className="text-lg font-semibold">Rental Terms</h2>
-        <p className="text-gray-600">Daily Rate: ${tool.dailyRate}</p>
-        <p className="text-gray-600">Weekly Rate: ${tool.weeklyRate}</p>
-        <p className="text-gray-600">Monthly Rate: ${tool.monthlyRate}</p>
+        <p className="text-gray-600">Daily Rate: €{tool.dailyRate}</p>
+        <p className="text-gray-600">Weekly Rate: €{tool.weeklyRate}</p>
+        <p className="text-gray-600">Monthly Rate: €{tool.monthlyRate}</p>
       </div>
 
       <button
-        className="bg-red-400 text-white py-2 px-4 rounded mt-2"
+        className="bg-red-600 text-white py-4 pl-10 pr-10  rounded mt-7"
         onClick={handleDeleteClick}
       >
         Delete Item

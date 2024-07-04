@@ -31,7 +31,7 @@ const Form = () => {
     picture: '', // Added for picture state
     liked: false,
     available: true,
-    ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // actual owner id
+    ownerId: '02cb67ed-82f6-4ca9-b25e-ae78606d1482', // actual owner id
     reviews: [],
     toolCategoryId: '',
     toolrequests: [],
@@ -123,7 +123,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: 'af8f66a5-2594-4f7a-881e-ae88585dc3f8', // Replace with the actual
+        ownerId: '02cb67ed-82f6-4ca9-b25e-ae78606d1482', // Replace with the actual
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],
@@ -138,7 +138,7 @@ const Form = () => {
 
   return (
     <>
-      <header className='flex justify-start pt-4 pl-5  border-grey h-20 shadow-md mb-5 bg-slate-200 '>
+      <header className='flex justify-start pt-4 pl-5  border-slate-50 rounded-xl h-20 shadow-md mb-5 bg-slate-200 '>
         <Link href='/rented'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-12 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -154,7 +154,7 @@ const Form = () => {
 
           <form
             onSubmit={handleSubmit}
-            className='flex flex-col bg-white shadow-md rounded px-8 pt-1 pb-8 mt-6 '
+            className='flex flex-col bg-white border-slate-50 shadow-slate-400 shadow-xl rounded-xl px-8 pt-1 pb-8 mt-6 '
           >
             <label htmlFor='name' className='mb-1 mt-1'>
             Product Name
@@ -268,10 +268,10 @@ const Form = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className='flex items-center justify-center  '>
+            <div className='flex items-center justify-center'>
               <button
                 type='submit'
-                className='bg-darkGreen pt-4 pb-4 pl-20 pr-20 text-white text-sm rounded-md'
+                className='bg-darkGreen py-4 px-20 text-white text-sm rounded-md'
               >
               Submit
               </button>
