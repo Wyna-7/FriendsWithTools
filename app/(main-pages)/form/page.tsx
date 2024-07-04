@@ -15,14 +15,14 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCategoriesStore } from '@/app/lib/providers/categories-store-provider';
-import { Ultra } from 'next/font/google';
+import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 const Form = () => {
 
   const {categories} = useCategoriesStore(
     (state) => state,
   );
 
-
+  const { currentUserId } = useCurrentUserStore((state) => state);
   const [input, setInput] = useState<Partial <ToolCard>>({
     name: '',
     description: '',
@@ -31,7 +31,7 @@ const Form = () => {
     picture: '', // Added for picture state
     liked: false,
     available: true,
-    ownerId: '02cb67ed-82f6-4ca9-b25e-ae78606d1482', // actual owner id
+    ownerId: currentUserId, // actual owner id
     reviews: [],
     toolCategoryId: '',
     toolrequests: [],
@@ -123,7 +123,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: '02cb67ed-82f6-4ca9-b25e-ae78606d1482', // Replace with the actual
+        ownerId: currentUserId, // Replace with the actual
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],
@@ -138,15 +138,8 @@ const Form = () => {
 
   return (
     <>
-      <header className='flex justify-start pt-4 pl-5  border-slate-50 rounded-xl h-20 shadow-md mb-5 bg-slate-200 '>
-        <Link href='/rented'>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-12 ">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-          </svg>
-        </Link>
-        {/*<Link href='/rented'>
-            <ChevronLeftIcon className='h-4 w-4' />         Use this icon as a back button everywhere in app?
-          </Link>*/}
+      <header className=' flex items-center justify-center inset-x-0 top-0 border-t  border-grey h-20 shadow-md mb-1 bg-darkGreen'>
+        <h1 className='text-center text-xl font-bold text-white'>Post a new tool</h1>
       </header>
       <div className='flex justify-center items-center  h-200'>
 
@@ -154,7 +147,7 @@ const Form = () => {
 
           <form
             onSubmit={handleSubmit}
-            className='flex flex-col bg-white border-slate-50 shadow-slate-400 shadow-xl rounded-xl px-8 pt-1 pb-8 mt-6 '
+            className='flex flex-col bg-white  px-8 pt-1 pb-8 mt-6 '
           >
             <label htmlFor='name' className='mb-1 mt-1'>
             Product Name
@@ -268,10 +261,10 @@ const Form = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className='flex items-center justify-center'>
+            <div className='flex items-center justify-center  '>
               <button
                 type='submit'
-                className='bg-darkGreen py-4 px-20 text-white text-sm rounded-md'
+                className='bg-darkGreen pt-4 pb-4 pl-20 pr-20 text-white text-sm rounded-md'
               >
               Submit
               </button>
