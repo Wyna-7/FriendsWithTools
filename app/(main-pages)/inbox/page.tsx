@@ -6,16 +6,17 @@ import ConvoListItem from '../../components/ConvoListItem';
 import { useEffect, useState } from 'react';
 import { Conversation } from '../../lib/types';
 import { useCurrentUserStore } from '@/app/lib/stores/test-store';
+import io from 'socket.io-client';
+
 
 const InboxPage = () => {
-
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const { setCurrentUserId } = useCurrentUserStore((state) => state);
 
   useEffect(() => {
-    const fetchCurrentUser =  async () => {
+    const fetchCurrentUser = async () => {
       try {
         const response = await fetch('/api/loggedUser');
         const data = await response.json();
@@ -25,10 +26,11 @@ const InboxPage = () => {
       }
     };
     fetchCurrentUser();
-  },[]);
+  }, []);
 
 
   useEffect(() => {
+    const socket = io('http://localhost:3001');
     const fetchConversations = async () => {
       try {
         const response = await fetch('/api/conversations');
@@ -42,6 +44,27 @@ const InboxPage = () => {
     };
 
     fetchConversations();
+    // console.log('here')
+
+    socket.on('connect', () => {
+      console.log('Connected to socket server:', socket.id);
+    });
+
+    socket.on('receive_msg', (data) => {
+      setConversations((prevConversations) =>
+        prevConversations.map((convo) =>
+          convo.id === data.conversationId ? { ...convo, messages: [...convo.messages, data] } : convo
+        )
+      );
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from socket server');
+    });
+
+    return () => {
+      socket.off('disconnect');
+    };
   }, []);
 
   if (loading) {
