@@ -25,19 +25,28 @@ export default function RootLayout ({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        variables: { colorPrimary: '#106E60', },
-        signIn: {
-          variables: {colorPrimary: '#106E60'}
-        }
-      }}
-    >
-      <html lang='en' className='h-full'>
-        <body className={`${roboto.className}, h-full`}>
-          <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <>
+      <ClerkProvider
+        appearance={{
+          variables: { colorPrimary: '#106E60', },
+          signIn: {
+            variables: {colorPrimary: '#106E60'}
+          }
+        }}
+      >
+        <html lang='en' className='h-full'>
+          <head>
+            <link
+              rel="icon"
+              href="icon.svg"
+              type="image"
+            />
+          </head>
+          <body className={`${roboto.className}, h-full`}>
+            <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+    </>
   );
 }
