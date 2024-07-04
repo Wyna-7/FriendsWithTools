@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RequestToolCard from './RequestToolCard';
 import { ToolRequest as RequestType, ToolCard as ToolType } from '../lib/types';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button'; 
+import { Button } from '@/components/ui/button';
 import { FaChevronDown } from 'react-icons/fa'; // Import the arrow icon
 
 
@@ -42,10 +42,10 @@ const SentRequests = ({ requests }: { requests: RequestType[] }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mt-5">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-        <Button className="mb-4 p-2 border rounded flex items-center bg-gray-100 hover:bg-gray-300 text-black">
+          <Button className="mb-4 p-2 border rounded flex items-center bg-gray-100 hover:bg-gray-300 text-black">
             {statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
             <FaChevronDown className="ml-2" /> {/* Add the arrow icon */}
           </Button>
