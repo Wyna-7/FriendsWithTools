@@ -130,33 +130,51 @@ async function main () {
       senderId: users[0].id,
       sender: users[0]
     },
-    {
-      id: uuidv4(),
-      messages: [],
-      senderId: users[1].id,
-      sender: users[1]
-    }
+    // {
+    //   id: uuidv4(),
+    //   messages: [],
+    //   senderId: users[1].id,
+    //   sender: users[1]
+    // }
   ];
 
   const messages: Message[] = [
     {
       id: uuidv4(),
-      content: 'Hello, I\'m interested in renting your drill.',
+      content: 'Hello! I saw your request for the vaccuum',
       createdAt: new Date(),
-      authorId: users[1].id,
-      author: users[1],
+      authorId: users[0].id,
+      author: users[0],
       conversationId: conversations[0].id,
       conversation: conversations[0]
     },
     {
       id: uuidv4(),
-      content: 'Sure! When do you need it?',
+      content: 'Let me know which dates you need it, I will not use it this weekend :)',
+      createdAt: new Date(),
+      authorId: users[0].id,
+      author: users[0],
+      conversationId: conversations[0].id,
+      conversation: conversations[0]
+    },
+    {
+      id: uuidv4(),
+      content: 'If it is ok, please come pick it up at 2 Liberty Road, Dublin.',
       createdAt: new Date(),
       authorId: users[0].id,
       author: users[0],
       conversationId: conversations[0].id,
       conversation: conversations[0]
     }
+    // {
+    //   id: uuidv4(),
+    //   content: 'Hello, I\'m interested in renting your vaccum.',
+    //   createdAt: new Date(),
+    //   authorId: users[1].id,
+    //   author: users[1],
+    //   conversationId: conversations[0].id,
+    //   conversation: conversations[0]
+    // },
   ];
 
   const toolrequests: ToolRequest[] = [

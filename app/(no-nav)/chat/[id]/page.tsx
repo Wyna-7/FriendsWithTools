@@ -95,7 +95,7 @@ const ChatPage = () => {
           alt={'tool picture'}
         />
         <div className='chat-info flex-col ml-6 text-white'>
-          <p className='font-bold'>John: Drill</p>
+          <p className='font-bold'>John: Vaccuum</p>
           <p>Daily rate: €5</p>
         </div>
       </header>
