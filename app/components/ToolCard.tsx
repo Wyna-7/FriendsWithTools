@@ -5,24 +5,27 @@ import {
   HeartIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useCurrentUserStore } from '../lib/stores/test-store';
 
 export interface ToolCardProps {
-  tool: ToolType;
+  onHeartClick?: (tool: ToolCard) => void;
+  tool: ToolCard;
   query?: string
 }
 
-const ToolCardComponent = ({ tool}: ToolCardProps) => {
+const ToolCardComponent = ({ tool, onHeartClick}: ToolCardProps) => {
   const defaultImage = 'https://shorturl.at/PyeKu'; //place holder image
 
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const { currentUserId } = useCurrentUserStore((state) => state);
   const handleLike = async () => {
     //to instantly change heart color
     tool.liked = tool.liked ? false : true;
+    onHeartClick && onHeartClick(tool);
     setIsFavorite(isFavorite ? false : true);
     //to post card to wishlist -> this method handles both add & remove from user wishlist
     try {
-      const response = await fetch('/api/wishlist', {
+      const response = await fetch(`/api/wishlist/${currentUserId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -39,9 +42,9 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
   };
 
   return (
-    <div className=" border-slate-50 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
+    <div className=" border-slate-50 min-w-80 border-4 p-6 rounded-xl  shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <Link href={`/tools/${tool.id}`}>
-        <div className="relative h-64 rounded-m overflow-hidden bg-cover w-80 bg-center "
+        <div className="relative h-64 rounded-xl overflow-hidden bg-cover w-80 bg-center "
           style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}>
         </div>
       </Link>
@@ -49,7 +52,7 @@ const ToolCardComponent = ({ tool}: ToolCardProps) => {
         <div className="flex flex-col flex-nowrap items-start">
           <p className="text-lg font-semibold">{tool.name}</p>
           <p className="text-gray-600">{tool.location}</p>
-          <h2 className="text-gray-600">{tool.owner.name}</h2>
+          <h2 className="text-gray-600">{tool.owner.name} {tool.owner.lastName}</h2>
         </div>
         <div className="flex flex-col items-end justify-between">
           <h1 className="text-2xl font-semibold text-gray-900">${tool.dailyRate}</h1>

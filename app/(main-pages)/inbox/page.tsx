@@ -5,16 +5,32 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import ConvoListItem from '../../components/ConvoListItem';
 import { useEffect, useState } from 'react';
 import { Conversation } from '../../lib/types';
+import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 import io from 'socket.io-client';
 
 
 const InboxPage = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // const socket = io('http://localhost:3001'); 
-  
+
+  const { setCurrentUserId } = useCurrentUserStore((state) => state);
+
   useEffect(() => {
-    const socket = io('http://localhost:3001'); 
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        setCurrentUserId(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentUser();
+  }, []);
+
+
+  useEffect(() => {
+    const socket = io('http://localhost:3001');
     const fetchConversations = async () => {
       try {
         const response = await fetch('/api/conversations');
@@ -63,7 +79,7 @@ const InboxPage = () => {
       <ScrollArea className="h-[670px] w-[100%] p-1">
         {conversations.map(convo => (
           <li key={convo.id} className='list-none'>
-            <ConvoListItem convo={convo}  />
+            <ConvoListItem convo={convo} />
           </li>
         ))}
       </ScrollArea>
