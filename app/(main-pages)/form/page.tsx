@@ -2,8 +2,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '@/lib/firebase';
-import { ToolCategory, ToolCard } from '../../lib/types';
-import { v4 as uuidv4 } from 'uuid';
+import { ToolCard } from '../../lib/types';
 import {
   Select,
   SelectContent,
@@ -11,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCategoriesStore } from '@/app/lib/providers/categories-store-provider';
@@ -38,8 +36,7 @@ const Form = () => {
     wishlists: [],
     active: true
   });
-  // const [categories, setCategories] = useState<ToolCategory[]>([]);
-  //const [image, setImage] = useState<File | null>(null); // State to store the selected image file
+
   const router= useRouter();
   useEffect(() => {
     if (categories.length > 0) {
@@ -84,8 +81,6 @@ const Form = () => {
           picture: mediaUrl,
         }));
 
-        // setImage(file); // Set the file to state for later use if needed
-
       } catch (error) {
         console.error('Error uploading file:', error);
       }
@@ -123,7 +118,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: currentUserId, // Replace with the actual
+        ownerId: currentUserId,
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],

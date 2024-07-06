@@ -80,7 +80,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
       </DropdownMenu>
       <div className="flex flex-wrap justify-center">
         {tools.map(({ tool, request }) => (
-          <div key={request.id} className="border-slate-50 border-4 p-4 rounded-xl shadow-xl shadow-slate-400 flex flex-col items-center m-4">
+          <div key={request.id} className="border-slate-50 w-[358.203px] border-4 p-4 rounded-xl shadow-xl shadow-slate-400 flex flex-col items-center m-4">
             <div
               className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
               style={{ backgroundImage: `url(${tool.picture || 'https://shorturl.at/PyeKu'})` }}

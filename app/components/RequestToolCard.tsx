@@ -27,7 +27,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
   };
 
   return (
-    <div className="border-slate-50 border-4 p-4 rounded-xl shadow-slate-400 shadow-xl flex flex-col items-center m-4">
+    <div className="border-slate-50 w-[358.203px] border-4 p-4 rounded-xl shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <div
         className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${tool.picture || defaultImage})` }}

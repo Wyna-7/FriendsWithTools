@@ -7,7 +7,6 @@ import { CategoriesStoreProvider } from './lib/providers/categories-store-provid
 import {
   ClerkProvider,
 } from '@clerk/nextjs';
-import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
 const roboto = Roboto({
   weight: '400',
   subsets: ['latin'],
@@ -15,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'FriendsWithTools - Share your tools',
+  title: 'EquipMate - Share your tools',
   description: 'Rent tools from your neighbors',
 };
 

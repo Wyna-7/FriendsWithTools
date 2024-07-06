@@ -54,7 +54,7 @@ const MyRequests = ({ requests }: { requests: RequestType[] }) => {
         <option value="accepted">Accepted</option>
         <option value="declined">Declined</option>
       </select>
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-col place-content-center">
         {tools.map(({ tool, request }) => (
           <RequestToolCard
             key={request.id}
