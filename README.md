@@ -1,55 +1,95 @@
-# FriendsWithTools
+## EquipMate
 
-## Project description
+![EquipMate](https://github.com/FriendsWithTools/FriendsWithTools/assets/29009407/d1eedc00-139a-4c28-87d9-af741d3e9b50)
 
-C2C Tool renting app for neighbors
 
-A tool renting app that allows users to upload the tools they own and offer them for rent, as well as view other user's tools and rent them.
-The app will allow for payment transactions and messaging between users.
+EquipMate is a tool renting app that allows users to upload the tools they own, offer them for rent, view other user's tools, and rent them.
 
-## MVP
+## Screenshots
 
-- Users should be able to register, login and logout from the app.
-- Users should be able to take a picture of their tool and list it for rent.
-- Users should be able to search for available tools.
-- Users should be able to place a request to rent a tool.
-- Users that listed a tool for rent should be able to accept or deny rent requests.
-- User should be able to make and receive payments for accepted rent requests.?
+<img width="768"  alt="products-one" src="https://github.com/FriendsWithTools/FriendsWithTools/assets/29009407/2160facc-11fd-46b2-b541-93cb37012752">
+<img width="768" alt="product-two" src="https://github.com/FriendsWithTools/FriendsWithTools/assets/29009407/dd5268ad-dd67-48a7-ba6b-a8b480c50074">
 
-## Additional features
+## Getting started
+To run EquipMate you will need to connect to two external services and store their information in your ENV file: 
 
-- Users should be able to message each other. (Socket io)
-- Users should be able to review each other after returning the rented item. The reviews should be published only when both users have written them.
-- Users should be able to see tools for rent as pins on a map near them. (Leaflet)
+### Clerk 
+- Create a free account on [Clerk](https://clerk.com) and follow this [documentation](https://clerk.com/docs/quickstarts/nextjs). 
+- Set up a webhook to store Clerk data in your local database following this [documentation](https://clerk.com/docs/integrations/webhooks/sync-data).
+  
+### Firebase 
+- To get the API keys you will need, follow this [documentation](https://firebase.google.com/docs/storage/web/start).
+- Save your Firebase information in the project ENV file
+```
+DATABASE_URL=" "
 
-## Tech stack
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
 
-Mobile first app.
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-**Front End:**
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/explore
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/explore
 
-- React with Next.js and TypeScript
-- FireBase for image storage
-- Tailwind/Chakra/Shadcn/ui (tbd)
-- Stripe for payments
+WEBHOOK_SECRET=
+```
 
-**Back End:**
+### Database seeding
+If you would like to seed the database before starting, use the following commands:
 
-- Next.js
-- Postgres with Prisma for user data storage
-- Stripe for payments
-- Socket io for messages between users
-- NextAuth.js for authentication
+```
+npx  prisma generate
+```
+```
+npx prisma migrate dev
+```
+You should see the following message on your terminal 
+```
+🌱  The seed command has been executed.
+```
+If you would like to work with Prisma Studio, use this command:
+```
+npx prisma studio --browser chrome
+```
 
-**Database Structure:**
-![database structure](friendsWithTools_DB.png)
+To launch EquipMate, run
+```
+npm run dev
+```
 
-**Testing**
 
-- Front end with Jest & Testing Library
-- Back end with Jest and SuperTest
-- E2E with Cypress
+## Tech Stack
+* [NextJS](https://nextjs.org)
+* [TypeScript](https://www.typescriptlang.org)
+* [Tailwind](https://tailwindcss.com)
+* [Shadcn](https://ui.shadcn.com/)
+* [Prisma](https://www.prisma.io/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Socket.io](https://socket.io/)
+* [Firebase](https://firebase.google.com/)
+* [Clerk](https://clerk.com)
+* [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+* [Jest](https://jestjs.io/)
+* [Cypress](https://www.cypress.io)
 
-**Deployment**
+## Developers
+* Queralt Guillen Lafuente [Github](https://github.com/Wyna-7) - [LinkedIn](https://www.linkedin.com/in/queralt-guillen/)
+* Sevim Tas Joseph [GitHub](https://github.com/sevtechcodes) - [LinkedIn](https://www.linkedin.com/in/sevimjoseph)
+* Jemima Cecil [GitHub](https://github.com/jemimacecil) - [LinkedIn](https://www.linkedin.com/in/jemima-cecil-5602211a0/)
+* Brice Fromm [GitHub](https://github.com/Elsass1) - [LinkedIn](https://www.linkedin.com/in/frommbrice)
 
-- Vercel
+## Future Features
+* User should be able to make and receive payments for accepted rent requests with Stripe
+* Users should be able to review each other after returning the rented item. The reviews should be published only when both users have written them.
+* Users should be able to see tools for rent as pins on a map near them [Leaflet](https://leafletjs.com/).
+
+
+
+
