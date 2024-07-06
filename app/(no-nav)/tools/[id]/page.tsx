@@ -43,8 +43,8 @@ const ToolDetailPage = () => {
   }
   
   return (
-    <div>
-      <ToolPage tool={tool} />
+    <div className='z-40'>
+      <ToolPage tool={tool}  />
     </div>
   );
 };

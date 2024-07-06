@@ -55,7 +55,7 @@ const ToolCardComponent = ({ tool, onHeartClick}: ToolCardProps) => {
           <h2 className="text-gray-600">{tool.owner.name} {tool.owner.lastName}</h2>
         </div>
         <div className="flex flex-col items-end justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">${tool.dailyRate}</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">€{tool.dailyRate}</h1>
           <div className="relative text-[2rem] hover:cursor-pointer" onClick={handleLike}>{
             tool.liked ?
               <HeartIcon className='size-8 stroke-red-600 fill-red-600' />
