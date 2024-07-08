@@ -37,6 +37,7 @@ const Form = () => {
     active: true
   });
 
+  const [select, setSelect] = useState<boolean>(false);
   const router= useRouter();
   useEffect(() => {
     if (categories.length > 0) {
@@ -45,6 +46,13 @@ const Form = () => {
     console.log(categories);
 
   }, [categories]);
+
+
+  const handleMenuClick = (event: any) =>{
+    event.stopPropagation();
+    // setSelect(!select);
+    console.log('selected');
+  };
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -246,7 +254,8 @@ const Form = () => {
                 value={input.toolCategoryId}
               >
                 <SelectTrigger className='w-45 mt-3'>
-                  <SelectValue placeholder='Select a category' />
+                  <SelectValue placeholder='Select a category'
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
