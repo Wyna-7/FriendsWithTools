@@ -66,9 +66,9 @@ const WishlistPage = () => {
       </header>
       <div className='wishlist-list z-20 mt-20 mb-20 flex flex-col w-full sm:flex-row sm:flex-wrap sm:justify-center'>
         {favTools.length === 0 ?
-          <div className='z-50 h-full w-full flex flex-col justify-center
-                          align-middle text-center text-xl p-4 mt-54 sm:mt-72'>
-            <div>Your wish list is empty ☹</div>
+          <div className='z-50 mt-54 h-full flex flex-col justify-center
+                          align-middle text-center text-xl p-4'>
+            <div className='sm:mt-72'>Your wish list is empty ☹</div>
             <div>Go check some nearby tools in the explore page! </div>
           </div>
           :
