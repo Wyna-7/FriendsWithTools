@@ -142,7 +142,7 @@ const Form = () => {
 
           <form
             onSubmit={handleSubmit}
-            className='flex flex-col bg-white  px-8 pt-8 pb-8 mt-10 mb-20 lg:mt-40
+            className='flex flex-col bg-white  px-8 pt-8 pb-8 mt-10 mb-20 xl:mt-30
             '
           >
             <label htmlFor='name' className='mb-1 mt-1'>

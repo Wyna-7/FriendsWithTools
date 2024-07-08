@@ -30,7 +30,7 @@ const CategoriesCarousel = () => {
       <CarouselContent>
         {categories.map((category) => (
           <CarouselItem
-            className= {'mt-1.5 text-darkGreen font-semibold cursor-pointer sm: basis-4/4 md:basis-2/8 lg:basis-4/8 pl-8'}
+            className= {'mt-1.5 text-darkGreen font-semibold cursor-pointer sm: basis-4/4 md:basis-2/8 lg:basis-4/8  pl-8'}
             key={category.id}
             onClick={() => handleCategory(category.id)}
           >
