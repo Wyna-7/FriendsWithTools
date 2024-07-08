@@ -19,7 +19,7 @@ export default function RootLayout ({
   children: React.ReactNode;
 }) {
   return (
-    <div className='h-full'>
+    <div className='md:w-auto h-full'>
       {children}
       <NavBar/>
     </div>
