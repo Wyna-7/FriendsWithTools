@@ -43,7 +43,7 @@ const ToolsPage = ({
     const fetchAllTools = async () => {
       try {
 
-        const response = await fetch(`/api/search?query=${query}`);
+        const response = await fetch(`/api/search?query=${query.toLowerCase()}`);
 
         const data: ToolCard[] = await response.json();
 
@@ -76,9 +76,12 @@ const ToolsPage = ({
   }, [query, currentUserId]);
 
   useEffect(() => {
+
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');
-    setTools(updatedTools);
-  }, [favTools, allTools]);
+    const filteredTools = updatedTools.filter((item)=> item.name.toLowerCase().includes(query));
+    setTools(filteredTools);
+
+  }, [favTools, allTools, query]);
 
   if (loading) {
     return <div>Loading...</div>;
