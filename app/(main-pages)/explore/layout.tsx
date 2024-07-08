@@ -21,7 +21,7 @@ export default function RootLayout ({
 }) {
   return (
     <div className='w-screen'>
-      <div className='fixed mb-10 z-40 w-full bg-white px-4 sm:px-6 lg:px-8'>
+      <div className='fixed mb-10 z-40 w-full bg-white px-4 sm:px-6 md:mt-20 lg:px-8'>
         <div className='w-full flex flex-col items-center justify-center'>
           <div className='w-full flex justify-center'>
             <SearchBar />

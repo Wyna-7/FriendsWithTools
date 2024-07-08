@@ -25,7 +25,7 @@ const NavBar = () => {
   ];
 
   return (
-    <div className='fixed bg-white inset-x-0 bottom-0 border-t border-grey h-20 shadow-md'>
+    <div className='fixed bg-white inset-x-0 bottom-0 border-t border-grey h-20  md:top-0 md:bottom-unset md:pt-10 md:z-50 md:pb-10 mb:border-hidden'>
       <div className='flex justify-around items-center h-full p-4'>
         {navItems.map(({ path, icon: Icon, label }) => (
           <div key={path}>
