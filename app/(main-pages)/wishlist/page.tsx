@@ -39,7 +39,9 @@ const WishlistPage = () => {
           el.liked = true;
         });
 
-        setFavTools(data);
+        const favorites = data.filter((item) => item.active);
+
+        setFavTools(favorites);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch tools:', error);
