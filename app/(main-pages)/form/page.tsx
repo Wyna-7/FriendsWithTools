@@ -37,7 +37,6 @@ const Form = () => {
     active: true
   });
 
-  const [select, setSelect] = useState<boolean>(false);
   const router= useRouter();
   useEffect(() => {
     if (categories.length > 0) {
@@ -47,12 +46,6 @@ const Form = () => {
 
   }, [categories]);
 
-
-  const handleMenuClick = (event: any) =>{
-    event.stopPropagation();
-    // setSelect(!select);
-    console.log('selected');
-  };
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>

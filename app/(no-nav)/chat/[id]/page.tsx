@@ -105,7 +105,7 @@ const ChatPage = () => {
             <li key={message.id} className={`list-none  flex ${message.authorId === currentUserId ? 'justify-end': 'justify-start'}`} >
               <div className={`w-fit min-w-[10rem] rounded-md m-4 p-2 ${message.authorId === currentUserId ? 'bg-green-100': 'bg-blue-100'}`}>
                 <p className='text-lg'>{message.content}</p>
-                <p className='font-light text-end text-base text-slate-400'>{format(message.createdAt, "H':'mm")}</p>
+                <p className='font-light text-end text-base text-slate-400'>{format(message.createdAt, 'H\':\'mm')}</p>
               </div>
             </li>
           ))}
