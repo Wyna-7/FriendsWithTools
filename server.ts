@@ -1,6 +1,6 @@
 // import { createServer } from 'http';
 const { createServer } = require('http')
-const { Server } = require ('socket.io')
+const { Server } = require('socket.io')
 // import { Server } from 'socket.io';
 // import { Socket } from 'socket.io'
 const { Socket } = require('socket.io');
@@ -10,7 +10,7 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient();
 
-async function main() {
+async function main () {
   const allUsers = await prisma.user.findMany()
   console.log(allUsers)
 }
@@ -60,6 +60,39 @@ io.on('connection', (socket: typeof Socket) => {
       socket.emit('error', 'An error occurred while sending the message.');
     }
   });
+
+  socket.on('create_conversation', async (data: any) => {
+    const { senderId, toolOwnerId } = data;
+
+    try {
+      let conversation = await prisma.conversation.findFirst({
+        where: {
+          OR: [
+            { senderId: senderId, receiverId: toolOwnerId },
+            { senderId: toolOwnerId, receiverId: senderId }
+          ],
+        },
+
+      });
+
+      if (conversation) {
+        io.emit('conversation_created', conversation);
+      }
+      if (!conversation) {
+        conversation = await prisma.conversation.create({
+          data: {
+            senderId: senderId, receiverId: toolOwnerId
+          },
+        });
+        // Emit event for the creation of a new conversation
+        io.emit('conversation_created', conversation);
+      }
+    } catch (error) {
+      console.error('Error creating conversation:', error);
+      socket.emit('error', 'Failed to create conversation');
+    }
+  });
+
 
   // Leave a conversation room
   socket.on('disconnect', () => {

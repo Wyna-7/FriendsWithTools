@@ -19,7 +19,7 @@ export async function POST (request: NextRequest) {
       ownerId,
       toolCategoryId,
     } = addedTool;
-    console.log('owner ID',ownerId);
+    console.log('owner ID', ownerId);
     const newTool = await prisma.toolCard.create({
       data: {
         name,

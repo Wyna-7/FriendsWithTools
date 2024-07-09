@@ -12,6 +12,7 @@ async function main () {
       lastName: 'Doe',
       email: 'john.doe@example.com',
       conversations: [],
+      receivedConversations: [],
       reviews: [],
       listings: [],
       messages: [],
@@ -25,6 +26,7 @@ async function main () {
       lastName: 'Smith',
       email: 'jane.smith@example.com',
       conversations: [],
+      receivedConversations: [],
       reviews: [],
       listings: [],
       messages: [],
@@ -128,13 +130,17 @@ async function main () {
       id: uuidv4(),
       messages: [],
       senderId: users[0].id,
-      sender: users[0]
+      sender: users[0],
+      receiverId: users[1].id,
+      receiver: users[1]
     },
     {
       id: uuidv4(),
       messages: [],
       senderId: users[1].id,
-      sender: users[1]
+      sender: users[1],
+      receiverId: users[0].id,
+      receiver: users[0]
     }
   ];
 
@@ -281,7 +287,8 @@ async function main () {
             })) || []
           }
         },
-        senderId: conversation.senderId
+        senderId: conversation.senderId,
+        receiverId: conversation.receiverId
       }
     });
   }

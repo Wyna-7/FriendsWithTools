@@ -1,5 +1,9 @@
 import React from 'react';
 import { ToolCard as ToolType, ToolRequest as RequestType } from '../lib/types';
+import { useEffect } from 'react';
+import io from 'socket.io-client';
+const socket = io('http://localhost:3001'); // Connect to Socket.IO server
+import { useRouter } from 'next/navigation';
 
 export interface RequestToolCardProps {
   tool: ToolType;
@@ -9,6 +13,15 @@ export interface RequestToolCardProps {
 
 const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
   const defaultImage = 'https://shorturl.at/PyeKu';
+  const router = useRouter();
+
+
+  useEffect(() => {
+    return () => {
+      socket.off('conversation_created');
+      socket.off('error');
+    };
+  }, []);
 
   const handleDeleteClick = async () => {
     try {
@@ -26,6 +39,20 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
     }
   };
 
+
+  const handleChatClick = () => {
+    socket.emit('create_conversation', { userId: request.userId, toolOwnerId: tool.ownerId });
+    socket.on('conversation_created', (conversation: any) => {
+      console.log('window.location.href')
+      router.push(`/chat/${conversation.id}`);
+    });
+    socket.on('error', (error: any) => {
+      console.error('Error:', error);
+    });
+  };
+
+
+  console.log("hello")
   return (
     <div className="border-slate-50 border-4 p-4 rounded-xl shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <div
@@ -45,12 +72,20 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
       </div>
 
       {request.status === 'pending' && (
-        <button
-          className="bg-red-600 text-white py-4 px-10 rounded mt-7"
-          onClick={handleDeleteClick}
-        >
-          Delete Request
-        </button>
+        <div className="mt-7 flex space-x-4">
+          <button
+            className="bg-red-600 text-white py-2 px-6 rounded"
+            onClick={handleDeleteClick}
+          >
+            Delete Request
+          </button>
+          <button
+            className="bg-blue-600 text-white py-2 px-6 rounded"
+            onClick={handleChatClick}
+          >
+            Chat
+          </button>
+        </div>
       )}
     </div>
   );

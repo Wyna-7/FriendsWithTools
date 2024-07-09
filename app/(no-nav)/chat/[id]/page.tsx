@@ -1,9 +1,7 @@
-// pages/chat/[id].tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation'; // Update to useParams from next/navigation
+import { useParams } from 'next/navigation';
 import io from 'socket.io-client';
 import { Message, Conversation } from '../../../lib/types';
 import NavBar from '../../../components/NavBar';
@@ -15,7 +13,7 @@ import {
 import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 
 const ChatPage = () => {
-  const { id } = useParams(); // Use useParams to get the id
+  const { id } = useParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -49,7 +47,7 @@ const ChatPage = () => {
       try {
         const response = await fetch(`/api/conversations/${id}`);
         const data: Conversation = await response.json();
-        setMessages(data.messages || []);  // Provide a default empty array
+        setMessages(data.messages || []);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch messages');
@@ -66,33 +64,14 @@ const ChatPage = () => {
     if (newMessage.trim()) {
       const messageData = {
         content: newMessage,
-        authorId: 'f16a2d25-a37e-4887-88a2-eec81c876cee', // Replace with actual user ID
+        authorId: currentUserId, // Replace with actual user ID
         conversationId: id,
       };
       socket.emit('send_msg', messageData);
       setNewMessage('');
 
-      // try {
-      //   const response = await fetch('/api/conversations', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(messageData),
-      //   });
-
-      //   if (response.ok) {
-      //     const savedMessage = await response.json();
-      //     socket.emit('send_msg', savedMessage, id);
-      //     setNewMessage('');
-      //   } else {
-      //     console.error('Failed to send message');
-      //   }
-      // } catch (error) {
-      //   console.error('Failed to send message', error);
-      // }
     }
-    
+
   };
 
 
@@ -119,7 +98,7 @@ const ChatPage = () => {
       <div className='chat-view flex-col overflow-scroll h-[43rem] w-full p-2'>
         <ul>
           {messages.map((message) => (
-            <li key={message.id} className={`list-none flex ${message.authorId === currentUserId ? "justify-end": "justify-start"}`} >
+            <li key={message.id} className={`list-none flex ${message.authorId === currentUserId ? "justify-end" : "justify-start"}`} >
               <div>
                 <p>{message.authorId}</p>
                 <p>{message.content}</p>
@@ -128,8 +107,8 @@ const ChatPage = () => {
             </li>
           ))}
         </ul>
-        </div>
-        <div className='flex w-full max-w-sm items-center space-x-2 mt-3'>
+      </div>
+      <div className='flex w-full max-w-sm items-center space-x-2 mt-3'>
         <input
           type='text'
           value={newMessage}

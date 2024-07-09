@@ -18,12 +18,13 @@ import { useCategoriesStore } from '@/app/lib/providers/categories-store-provide
 import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 const Form = () => {
 
-  const {categories} = useCategoriesStore(
+  const { categories } = useCategoriesStore(
     (state) => state,
   );
 
   const { currentUserId } = useCurrentUserStore((state) => state);
-  const [input, setInput] = useState<Partial <ToolCard>>({
+
+  const [input, setInput] = useState<Partial<ToolCard>>({
     name: '',
     description: '',
     location: '',
@@ -40,7 +41,7 @@ const Form = () => {
   });
   // const [categories, setCategories] = useState<ToolCategory[]>([]);
   //const [image, setImage] = useState<File | null>(null); // State to store the selected image file
-  const router= useRouter();
+  const router = useRouter();
   useEffect(() => {
     if (categories.length > 0) {
       categories.forEach(category => console.log(category.categoryName));
@@ -150,7 +151,7 @@ const Form = () => {
             className='flex flex-col bg-white  px-8 pt-1 pb-8 mt-6 '
           >
             <label htmlFor='name' className='mb-1 mt-1'>
-            Product Name
+              Product Name
             </label>
             <input
               className='mb-4 border-b-2'
@@ -163,7 +164,7 @@ const Form = () => {
               required
             />
             <label htmlFor='description' className='mb-1 mt-1'>
-            Product Description
+              Product Description
             </label>
             <input
               className='mb-4 border-b-2'
@@ -176,7 +177,7 @@ const Form = () => {
               required
             />
             <label htmlFor='location' className='mb-1 mt-1'>
-            Pick up address
+              Pick up address
             </label>
             <input
               className='mb-4 border-b-2'
@@ -190,7 +191,7 @@ const Form = () => {
             />
             <div className='flex flex-row justify-between'>
               <label htmlFor='dailyRate' className='mb-1 mt-1'>
-              Daily rate
+                Daily rate
               </label>
               <input
                 className='mb-4 border-b-2 w-20 mt-1'
@@ -205,7 +206,7 @@ const Form = () => {
             </div>
             <div className='flex flex-row justify-between'>
               <label htmlFor='weeklyRate' className='mb-1 mt-1'>
-              Weekly rate
+                Weekly rate
               </label>
               <input
                 className='mb-4 border-b-2 w-20 mt-1'
@@ -219,7 +220,7 @@ const Form = () => {
             </div>
             <div className='flex flex-row justify-between mt-1'>
               <label htmlFor='monthlyRate' className='mb-1'>
-              Monthly rate
+                Monthly rate
               </label>
               <input
                 className='mb-4 border-b-2 w-20 '
@@ -233,13 +234,13 @@ const Form = () => {
             </div>
             <div className='flex flex-col justify-between'>
               <label htmlFor='image' className='mb-4'>
-              Product image
+                Product image
               </label>
-              <Input id="picture" type="file" onChange={handleFileChange} className='bg-darkGreen p-2 text-white text-sm rounded-md pl-8'/>
+              <Input id="picture" type="file" onChange={handleFileChange} className='bg-darkGreen p-2 text-white text-sm rounded-md pl-8' />
             </div>
             <div className='flex flex-row justify-between mt-4 mb-10'>
               <label htmlFor='category' className='mb-1 mt-5'>
-              Category
+                Category
               </label>
 
               <Select
@@ -266,7 +267,7 @@ const Form = () => {
                 type='submit'
                 className='bg-darkGreen pt-4 pb-4 pl-20 pr-20 text-white text-sm rounded-md'
               >
-              Submit
+                Submit
               </button>
             </div>
           </form>

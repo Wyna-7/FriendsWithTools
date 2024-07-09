@@ -1,17 +1,17 @@
 // import { create } from 'zustand';
-import {createStore} from 'zustand/vanilla';
+import { createStore } from 'zustand/vanilla';
 import { User } from '../types';
 import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@/prisma/db';
 
 
 export type UserState = {
-  loggedUser: Partial <User> | null;
+  loggedUser: Partial<User> | null;
   error: string | null;
 };
 
 export type UserAction = {
-fetchCurrentUser : () => void;
+  fetchCurrentUser: () => void;
 }
 
 
@@ -22,15 +22,15 @@ export const defaultInitState: UserState = {
   error: null,
 };
 
-export const createUserStore = (initState: UserState = defaultInitState ) => {
-  return createStore <CurrentUserStore>()((set) => ({
+export const createUserStore = (initState: UserState = defaultInitState) => {
+  return createStore<CurrentUserStore>()((set) => ({
     ...initState,
     fetchCurrentUser: async () => {
       const clerkUser = await currentUser();
       try {
-        const response = await prisma.user.findUnique({where: {clerkId: clerkUser?.id}});
+        const response = await prisma.user.findUnique({ where: { clerkId: clerkUser?.id } });
 
-        set({ loggedUser: response});
+        set({ loggedUser: response });
       } catch (error) {
 
       }
