@@ -78,7 +78,7 @@ const ToolsPage = ({
   useEffect(() => {
 
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');
-    const filteredTools = updatedTools.filter((item)=> item.name.toLowerCase().includes(query));
+    const filteredTools = updatedTools.filter((item)=> item.name.toLowerCase().includes(query) && item.active);
     setTools(filteredTools);
 
   }, [favTools, allTools, query]);

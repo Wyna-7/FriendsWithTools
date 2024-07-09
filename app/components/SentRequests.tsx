@@ -63,14 +63,17 @@ const SentRequests = ({ requests }: { requests: RequestType[] }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <div className="flex flex-wrap justify-center">
-        {tools.map(({ tool, request }) => (
-          <RequestToolCard
-            key={request.id}
-            tool={tool}
-            request={request}
-            onDelete={handleDelete}
-          />
-        ))}
+        {filteredRequests.length === 0 ?
+          <h1>You have no requests</h1>          
+          :
+          tools.map(({ tool, request }) => (
+            <RequestToolCard
+              key={request.id}
+              tool={tool}
+              request={request}
+              onDelete={handleDelete}
+            />
+          ))}
       </div>
     </div>
   );

@@ -9,12 +9,14 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
   const [statusFilter, setStatusFilter] = useState<string>('pending');
   const [filteredRequests, setFilteredRequests] = useState<RequestType[]>([]);
   const [tools, setTools] = useState<Array<{ tool: ToolType; request: RequestType }>>([]);
-
+  //TODO have page re-render after clicking accept/decline
   useEffect(() => {
+    console.log('got triggered 1');
     setFilteredRequests(requests.filter(request => request.status === statusFilter));
   }, [statusFilter, requests]);
 
   useEffect(() => {
+    console.log('got triggered 2');
     const fetchTools = async () => {
       const toolData = await Promise.all(
         filteredRequests.map(async (request) => {
@@ -29,7 +31,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
     if (filteredRequests.length > 0) {
       fetchTools();
     }
-  }, [filteredRequests]);
+  }, [filteredRequests, statusFilter]);
 
   const handleStatusChange = (status: string) => {
     setStatusFilter(status);
@@ -79,42 +81,46 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <div className="flex flex-wrap justify-center">
-        {tools.map(({ tool, request }) => (
-          <div key={request.id} className="border-slate-50 w-[358.203px] border-4 p-4 rounded-xl shadow-xl shadow-slate-400 flex flex-col items-center m-4">
-            <div
-              className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
-              style={{ backgroundImage: `url(${tool.picture || 'https://shorturl.at/PyeKu'})` }}
-            />
+        {filteredRequests.length === 0 ?
+          <h1>You have no requests</h1>          
+          :
+          tools.map(({ tool, request }) => (
+            <div key={request.id} className="border-slate-50 w-[358.203px] border-4 p-4 rounded-xl shadow-xl shadow-slate-400 flex flex-col items-center m-4">
+              <div
+                className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
+                style={{ backgroundImage: `url(${tool.picture || 'https://shorturl.at/PyeKu'})` }}
+              />
 
-            <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
-              <h1 className="text-lg font-semibold">{tool.name}</h1>
-              <p className="text-gray-600">{tool.description}</p>
-            </div>
-
-            <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
-              <h2 className="text-lg font-semibold">Request Information</h2>
-              <p className="text-gray-600">Status: {request.status}</p>
-              <p className="text-gray-600">Request Sent: {new Date(request.createdAt).toLocaleDateString()}</p>
-            </div>
-
-            {request.status === 'pending' && (
-              <div className="flex space-x-4 mt-7 mb-4">
-                <button
-                  className="bg-darkGreen text-white py-4 px-10 rounded mt-2"
-                  onClick={() => handleUpdateStatus(request.id, 'accepted')}
-                >
-                  Accept
-                </button>
-                <button
-                  className="bg-red-600 text-white py-4 px-10 rounded mt-2"
-                  onClick={() => handleUpdateStatus(request.id, 'declined')}
-                >
-                  Decline
-                </button>
+              <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
+                <h1 className="text-lg font-semibold">{tool.name}</h1>
+                <p className="text-gray-600">{tool.description}</p>
               </div>
-            )}
-          </div>
-        ))}
+
+              <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
+                <h2 className="text-lg font-semibold">Request Information</h2>
+                <p className="text-gray-600">Status: {request.status}</p>
+                <p className="text-gray-600">Requester: {tool.owner.name}</p>
+                <p className="text-gray-600">Request Sent: {new Date(request.createdAt).toLocaleDateString()}</p>
+              </div>
+
+              {request.status === 'pending' && (
+                <div className="flex space-x-4 mt-7 mb-4">
+                  <button
+                    className="bg-darkGreen text-white py-4 px-10 rounded mt-2"
+                    onClick={() => handleUpdateStatus(request.id, 'accepted')}
+                  >
+                  Accept
+                  </button>
+                  <button
+                    className="bg-red-600 text-white py-4 px-10 rounded mt-2"
+                    onClick={() => handleUpdateStatus(request.id, 'declined')}
+                  >
+                  Decline
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );

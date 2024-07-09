@@ -11,7 +11,7 @@ const ToolsToRent = ({ tools }: { tools: ToolType[] }) => {
   }, [tools]);
 
   const handleDelete = (toolId: string) => {
-    setToolsList(toolsList.filter(tool => tool.id !== toolId)); //TODO Add delete to update database and remove card from listing []
+    setToolsList(toolsList.filter(tool => tool.id !== toolId));
   };
 
   return (
