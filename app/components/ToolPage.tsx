@@ -33,6 +33,8 @@ const ToolPageComponent = ({ tool }: ToolPageProps) => {
       }
 
       console.log('Request sent successfully');
+
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -40,7 +42,7 @@ const ToolPageComponent = ({ tool }: ToolPageProps) => {
 
   return (
     <>
-      <header className='flex items-center fixed w-full justify-start pl-5 bg-darkGreen h-20 shadow-md'>
+      <header className='flex z-50 items-center fixed w-full justify-start pl-5 bg-darkGreen h-20 shadow-md'>
         <Link href='/explore'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="size-12">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -83,12 +85,14 @@ const ToolPageComponent = ({ tool }: ToolPageProps) => {
             </div>
 
             <div className="flex items-center justify-center mt-8">
-              <button
-                className="bg-darkGreen  text-white py-4 px-10 rounded mt-2"
-                onClick={handleRentClick}
-              >
-                Rent
-              </button>
+              <Link href={'/explore'}>
+                <button
+                  className="bg-darkGreen  text-white py-4 px-10 rounded mt-2"
+                  onClick={handleRentClick}
+                >
+                  Rent
+                </button>
+              </Link>
             </div>
           </div>
         </div>

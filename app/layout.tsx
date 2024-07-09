@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
-
 import { CategoriesStoreProvider } from './lib/providers/categories-store-provider';
+import { Providers } from './providers';
 
 import {
   ClerkProvider,
 } from '@clerk/nextjs';
-import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
 const roboto = Roboto({
   weight: '400',
   subsets: ['latin'],
@@ -15,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'FriendsWithTools - Share your tools',
+  title: 'EquipMate - Share your tools',
   description: 'Rent tools from your neighbors',
 };
 
@@ -43,7 +42,9 @@ export default function RootLayout ({
             />
           </head>
           <body className={`${roboto.className}, h-full`}>
-            <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
+            <Providers>
+              <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
+            </Providers>
           </body>
         </html>
       </ClerkProvider>

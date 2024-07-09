@@ -2,20 +2,13 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '@/lib/firebase';
-import { ToolCategory, ToolCard } from '../../lib/types';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import Link from 'next/link';
+import { ToolCard } from '../../lib/types';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCategoriesStore } from '@/app/lib/providers/categories-store-provider';
 import { useCurrentUserStore } from '@/app/lib/stores/test-store';
+import { Select } from '@chakra-ui/react';
+
 const Form = () => {
 
   const { categories } = useCategoriesStore(
@@ -39,8 +32,7 @@ const Form = () => {
     wishlists: [],
     active: true
   });
-  // const [categories, setCategories] = useState<ToolCategory[]>([]);
-  //const [image, setImage] = useState<File | null>(null); // State to store the selected image file
+
   const router = useRouter();
   useEffect(() => {
     if (categories.length > 0) {
@@ -49,6 +41,7 @@ const Form = () => {
     console.log(categories);
 
   }, [categories]);
+
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -84,8 +77,6 @@ const Form = () => {
           ...prevData,
           picture: mediaUrl,
         }));
-
-        // setImage(file); // Set the file to state for later use if needed
 
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -124,7 +115,7 @@ const Form = () => {
         monthlyRate: 0,
         liked: false,
         available: true,
-        ownerId: currentUserId, // Replace with the actual
+        ownerId: currentUserId,
         reviews: [],
         toolCategoryId: '',
         toolrequests: [],
@@ -142,13 +133,14 @@ const Form = () => {
       <header className=' flex items-center justify-center inset-x-0 top-0 border-t  border-grey h-20 shadow-md mb-1 bg-darkGreen'>
         <h1 className='text-center text-xl font-bold text-white'>Post a new tool</h1>
       </header>
-      <div className='flex justify-center items-center  h-200'>
+      <div className='flex h-[90%] justify-center max-h-screen' >
 
-        <div className='w-full max-w-xs'>
+        <div className='md:w-2/3 lg: max-w-lg '>
 
           <form
             onSubmit={handleSubmit}
-            className='flex flex-col bg-white  px-8 pt-1 pb-8 mt-6 '
+            className='flex flex-col bg-white  px-8 pt-8 pb-8 mt-10 mb-20 xl:mt-30
+            '
           >
             <label htmlFor='name' className='mb-1 mt-1'>
               Product Name
@@ -242,25 +234,16 @@ const Form = () => {
               <label htmlFor='category' className='mb-1 mt-5'>
                 Category
               </label>
-
-              <Select
-                onValueChange={(value) =>
-                  handleSelectChange('toolCategoryId', value)
-                }
-                name='toolCategoryId'
-                value={input.toolCategoryId}
-              >
-                <SelectTrigger className='w-45 mt-3'>
-                  <SelectValue placeholder='Select a category' />
-                </SelectTrigger>
-                <SelectContent>
+              <div className='pt-3'>
+                <Select onChange={(event) => handleSelectChange('toolCategoryId', event?.target.value)} name='toolCategoryId'
+                  value={input.toolCategoryId} placeholder='Select a category'>
                   {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
+                    <option key={category.id} value={category.id}>
                       {category.categoryName}
-                    </SelectItem>
+                    </option>
                   ))}
-                </SelectContent>
-              </Select>
+                </Select>
+              </div>
             </div>
             <div className='flex items-center justify-center  '>
               <button

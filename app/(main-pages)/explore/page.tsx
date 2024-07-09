@@ -37,13 +37,13 @@ const ToolsPage = ({
       }
     };
     fetchCurrentUser();
-  },[]);
+  },[setCurrentUserId]);
 
   useEffect(() => {
     const fetchAllTools = async () => {
       try {
 
-        const response = await fetch(`/api/search?query=${query}`);
+        const response = await fetch(`/api/search?query=${query.toLowerCase()}`);
 
         const data: ToolCard[] = await response.json();
 
@@ -76,9 +76,12 @@ const ToolsPage = ({
   }, [query, currentUserId]);
 
   useEffect(() => {
+
     const updatedTools = uniqBy([...favTools, ...allTools], 'id');
-    setTools(updatedTools);
-  }, [favTools, allTools]);
+    const filteredTools = updatedTools.filter((item)=> item.name.toLowerCase().includes(query) && item.active);
+    setTools(filteredTools);
+
+  }, [favTools, allTools, query]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -86,7 +89,7 @@ const ToolsPage = ({
 
   return (
     <div className='container mx-auto px-2 py-2'>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-scroll h-full mt-32'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-scroll h-full mb-20 mt-32 xl:mt-52'>
         { toolCategory === '' ?
           tools
             .map((tool) => (

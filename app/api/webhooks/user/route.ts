@@ -28,7 +28,6 @@ async function handler (request: Request) {
   //Get the body
   const payload = await request.json();
   const body = JSON.stringify(payload);
-  console.log('body', body)
 
   // Create a new Svix instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);

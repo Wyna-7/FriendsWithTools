@@ -9,7 +9,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'FriendsWithTools - Share your tools',
+  title: 'EquipMate - Share your tools',
   description: 'Rent tools from your neighbors',
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout ({
   children: React.ReactNode;
 }) {
   return (
-    <div className='h-full'>
+    <div className='md:w-auto h-full'>
       {children}
       <NavBar/>
     </div>
