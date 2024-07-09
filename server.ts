@@ -47,7 +47,7 @@ io.on('connection', (socket: typeof Socket) => {
         },
       });
 
-      io.to(data.conversationId).emit('receive_msg', message);
+      socket.to(data.conversationId).emit('receive_msg', message);
     } catch (error) {
       console.error('Error creating message:', error);
       socket.emit('error', 'An error occurred while sending the message.');
@@ -55,14 +55,14 @@ io.on('connection', (socket: typeof Socket) => {
   });
 
   socket.on('create_conversation', async (data: any) => {
-    const { senderId, toolOwnerId } = data;
+    const { userId, toolOwnerId } = data;
 
     try {
       let conversation = await prisma.conversation.findFirst({
         where: {
           OR: [
-            { senderId: senderId, receiverId: toolOwnerId },
-            { senderId: toolOwnerId, receiverId: senderId }
+            { senderId: userId, receiverId: toolOwnerId },
+            { senderId: toolOwnerId, receiverId: userId }
           ],
         },
 
@@ -71,10 +71,11 @@ io.on('connection', (socket: typeof Socket) => {
       if (conversation) {
         io.emit('conversation_created', conversation);
       }
+
       if (!conversation) {
         conversation = await prisma.conversation.create({
           data: {
-            senderId: senderId, receiverId: toolOwnerId
+            senderId: userId, receiverId: toolOwnerId
           },
         });
         // Emit event for the creation of a new conversation

@@ -21,8 +21,10 @@ const ChatPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [socket, setSocket] = useState<any>(null);
   const { currentUserId } = useCurrentUserStore((state) => state);
+  console.log(currentUserId, 'before')
 
   useEffect(() => {
+
     if (!id) return;
 
     const newSocket = io('http://localhost:3001');
@@ -60,19 +62,18 @@ const ChatPage = () => {
     if (id) {
       fetchMessages();
     }
-  }, [id]);
+  }, [id, currentUserId]);
 
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const messageData = {
         content: newMessage,
         authorId: currentUserId, // Replace with actual user ID
-        authorId: currentUserId, // Replace with actual user ID
+        // authorId: currentUserId, // Replace with actual user ID
         conversationId: id,
       };
       socket.emit('send_msg', messageData);
       setNewMessage('');
-
     }
 
   };
@@ -81,6 +82,7 @@ const ChatPage = () => {
   if (loading) {
     return <div>Loading messages...</div>;
   }
+  console.log(currentUserId, messages)
 
   return (
     <div>

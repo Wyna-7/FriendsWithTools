@@ -41,9 +41,9 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
 
 
   const handleChatClick = () => {
+    console.log('here', request.userId, tool.ownerId)
     socket.emit('create_conversation', { userId: request.userId, toolOwnerId: tool.ownerId });
     socket.on('conversation_created', (conversation: any) => {
-      console.log('window.location.href')
       router.push(`/chat/${conversation.id}`);
     });
     socket.on('error', (error: any) => {
