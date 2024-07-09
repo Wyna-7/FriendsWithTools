@@ -25,7 +25,7 @@ const CategoriesCarousel = () => {
   };
 
   return (
-    <div className='w-[50%] pb-5 xl:w-[60%] xl:pt-5 xl:pb-8 xl:text-center xl:m-auto'>
+    <div className='w-[55%] pb-5 xl:w-[60%] xl:pt-5 xl:pb-8 xl:text-center xl:m-auto'>
       <Carousel className='w-full'>
         <CarouselContent>
           {categories.map((category) => (
