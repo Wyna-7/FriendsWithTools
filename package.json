@@ -15,8 +15,12 @@
     "sockets": "DATABASE_URL=postgresql://postgres:password@localhost:5432/friendswithtools?schema=public npx nodemon server.ts"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
     "@clerk/nextjs": "^5.1.6",
     "@clerk/themes": "^2.1.10",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@heroicons/react": "^2.1.4",
     "@prisma/client": "5.16.0",
     "@radix-ui/react-avatar": "^1.1.0",
@@ -33,6 +37,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.1.5",
     "firebase": "^10.12.2",
+    "framer-motion": "^11.2.13",
     "heroicons": "^2.1.4",
     "idb": "^8.0.0",
     "lodash": "^4.17.21",

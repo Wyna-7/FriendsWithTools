@@ -19,8 +19,8 @@ const NavBar = () => {
   const navItems = [
     { path: '/explore', icon: MagnifyingGlassIcon, label: 'Explore' },
     { path: '/wishlist', icon: HeartIcon, label: 'Wishlist' },
-    { path: '/form', icon: PlusCircleIcon, label: 'Form' },
-    { path: '/rented', icon: WrenchScrewdriverIcon, label: 'Rented' },
+    { path: '/form', icon: PlusCircleIcon, label: 'Add a tool' },
+    { path: '/rented', icon: WrenchScrewdriverIcon, label: 'My tools' },
     { path: '/inbox', icon: EnvelopeIcon, label: 'Inbox' },
   ];
 

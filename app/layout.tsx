@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
-
 import { CategoriesStoreProvider } from './lib/providers/categories-store-provider';
+import { Providers } from './providers';
 
 import {
   ClerkProvider,
@@ -42,7 +42,9 @@ export default function RootLayout ({
             />
           </head>
           <body className={`${roboto.className}, h-full`}>
-            <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
+            <Providers>
+              <CategoriesStoreProvider>{children}</CategoriesStoreProvider>
+            </Providers>
           </body>
         </html>
       </ClerkProvider>
