@@ -10,7 +10,7 @@ export async function GET (request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST (request: NextRequest) {
   console.log('Received POST request');
   try {
     const { content, authorId, conversationId } = await request.json();

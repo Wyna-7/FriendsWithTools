@@ -89,7 +89,7 @@ const ToolsPage = ({
 
   return (
     <div className='container mx-auto px-2 py-2'>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-scroll h-full mb-20 mt-32'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-scroll h-full mb-20 mt-32 xl:mt-52'>
         { toolCategory === '' ?
           tools
             .map((tool) => (

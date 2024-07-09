@@ -34,7 +34,7 @@ const ToolPageComponent = ({ tool }: ToolPageProps) => {
 
       console.log('Request sent successfully');
 
-      
+
     } catch (error) {
       console.error('Error:', error);
     }
