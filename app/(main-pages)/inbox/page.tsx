@@ -13,20 +13,20 @@ const InboxPage = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const { setCurrentUserId } = useCurrentUserStore((state) => state);
+  const { currentUserId } = useCurrentUserStore((state) => state);
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await fetch('/api/loggedUser');
-        const data = await response.json();
-        setCurrentUserId(data.id);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchCurrentUser();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCurrentUser = async () => {
+  //     try {
+  //       const response = await fetch('/api/loggedUser');
+  //       const data = await response.json();
+  //       setCurrentUserId(data.id);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchCurrentUser();
+  // }, []);
 
 
   useEffect(() => {

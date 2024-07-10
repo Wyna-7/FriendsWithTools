@@ -20,8 +20,23 @@ const ChatPage = () => {
   const [newMessage, setNewMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [socket, setSocket] = useState<any>(null);
-  const { currentUserId } = useCurrentUserStore((state) => state);
-  console.log(currentUserId, 'before')
+  // const { currentUserId } = useCurrentUserStore((state) => state);
+  // console.log(currentUserId, 'before')
+
+  const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        setCurrentUserId(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentUser();
+  }, []);
 
   useEffect(() => {
 
