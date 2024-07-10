@@ -8,6 +8,7 @@ export type User = {
   lastName: string;
   email: string;
   conversations: Conversation[];
+  receivedConversations: Conversation[];
   reviews: ToolsReviews[];
   listings: ToolCard[];
   messages: Message[];
@@ -66,6 +67,8 @@ export type Conversation = {
   messages?: Message[];
   senderId: string;
   sender: User;
+  receiverId: string;
+  receiver: User;
 };
 
 export type Message = {

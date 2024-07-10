@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout ({
   children,
-}:{
+}: {
   children: React.ReactNode;
 }) {
   return (
@@ -29,7 +29,7 @@ export default function RootLayout ({
         appearance={{
           variables: { colorPrimary: '#106E60', },
           signIn: {
-            variables: {colorPrimary: '#106E60'}
+            variables: { colorPrimary: '#106E60' }
           }
         }}
       >

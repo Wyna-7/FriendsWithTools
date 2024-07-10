@@ -68,6 +68,8 @@ CREATE TABLE "ToolsReviews" (
 CREATE TABLE "Conversation" (
     "id" TEXT NOT NULL,
     "senderId" TEXT NOT NULL,
+    "receiverId" TEXT NOT NULL,
+    "userId" TEXT,
 
     CONSTRAINT "Conversation_pkey" PRIMARY KEY ("id")
 );
@@ -138,6 +140,12 @@ ALTER TABLE "ToolsReviews" ADD CONSTRAINT "ToolsReviews_toolCardId_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "Conversation" ADD CONSTRAINT "Conversation_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Conversation" ADD CONSTRAINT "Conversation_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Conversation" ADD CONSTRAINT "Conversation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD CONSTRAINT "Message_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -11,7 +11,7 @@ async function handler (request: Request) {
   if (!WEBHOOK_SECRET) {
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local');
   }
-  
+
   // Get the headers
   const headerPayload = headers();
   const svix_id = headerPayload.get('svix-id');
@@ -49,9 +49,9 @@ async function handler (request: Request) {
 
     const { id, username, first_name, last_name, email_addresses } = event.data;
     console.log('id: ', id, 'username: ', username, 'first name: ', first_name, 'last name: ', last_name, 'email addresses: ', email_addresses[0].email_address);
-    
+
     if (eventType === 'user.created' || eventType === 'user.updated') {
-      
+
       await prisma.user.upsert({
         where: {
           email: email_addresses[0].email_address,
@@ -70,7 +70,7 @@ async function handler (request: Request) {
           lastName: last_name,
           email: email_addresses[0].email_address,
         }
-      }   
+      }
       );
     }
 

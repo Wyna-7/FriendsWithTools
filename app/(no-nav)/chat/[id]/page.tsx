@@ -1,9 +1,7 @@
-// pages/chat/[id].tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation'; // Update to useParams from next/navigation
+import { useParams } from 'next/navigation';
 import io from 'socket.io-client';
 import { Message, Conversation } from '../../../lib/types';
 import { format } from 'date-fns';
@@ -17,14 +15,31 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 const ChatPage = () => {
-  const { id } = useParams(); // Use useParams to get the id
+  const { id } = useParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [socket, setSocket] = useState<any>(null);
-  const { currentUserId } = useCurrentUserStore((state) => state);
+  // const { currentUserId } = useCurrentUserStore((state) => state);
+  // console.log(currentUserId, 'before')
+
+  const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
 
   useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch('/api/loggedUser');
+        const data = await response.json();
+        setCurrentUserId(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentUser();
+  }, []);
+
+  useEffect(() => {
+
     if (!id) return;
 
     const newSocket = io('http://localhost:3001');
@@ -51,7 +66,7 @@ const ChatPage = () => {
       try {
         const response = await fetch(`/api/conversations/${id}`);
         const data: Conversation = await response.json();
-        setMessages(data.messages || []);  // Provide a default empty array
+        setMessages(data.messages || []);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch messages');
@@ -62,26 +77,27 @@ const ChatPage = () => {
     if (id) {
       fetchMessages();
     }
-  }, [id]);
+  }, [id, currentUserId]);
 
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const messageData = {
         content: newMessage,
         authorId: currentUserId, // Replace with actual user ID
+        // authorId: currentUserId, // Replace with actual user ID
         conversationId: id,
       };
       socket.emit('send_msg', messageData);
       setNewMessage('');
-
     }
-    
+
   };
 
 
   if (loading) {
     return <div>Loading messages...</div>;
   }
+  console.log(currentUserId, messages)
 
   return (
     <div>
@@ -102,8 +118,8 @@ const ChatPage = () => {
       <div className='chat-view flex-col overflow-scroll h-[43rem] w-full p-2'>
         <ul>
           {messages.map((message) => (
-            <li key={message.id} className={`list-none  flex ${message.authorId === currentUserId ? 'justify-end': 'justify-start'}`} >
-              <div className={`w-fit min-w-[10rem] rounded-md m-4 p-2 ${message.authorId === currentUserId ? 'bg-green-100': 'bg-blue-100'}`}>
+            <li key={message.id} className={`list-none  flex ${message.authorId === currentUserId ? 'justify-end' : 'justify-start'}`} >
+              <div className={`w-fit min-w-[10rem] rounded-md m-4 p-2 ${message.authorId === currentUserId ? 'bg-green-100' : 'bg-blue-100'}`}>
                 <p className='text-lg'>{message.content}</p>
                 <p className='font-light text-end text-base text-slate-400'>{format(message.createdAt, 'H\':\'mm')}</p>
               </div>
