@@ -15,8 +15,6 @@ export interface ConversationProps {
   convo: Conversation
 };
 
-
-//TODO: Deconstruct props outside so ternary operators do not take so much space
 //TODO: Style so avatar, last msg and time show at the same distance
 
 const ConvoListItem = ({ convo }: ConversationProps) => {

@@ -3,13 +3,16 @@ import { ToolRequest as RequestType, ToolCard as ToolType } from '../lib/types';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button'; // Adjust the import path based on your project structure
 import { FaChevronDown } from 'react-icons/fa'; // Import the arrow icon
+import { currentUser } from '@clerk/nextjs/server';
+import { useCurrentUserStore } from '../lib/stores/test-store';
 
 
 const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
   const [statusFilter, setStatusFilter] = useState<string>('pending');
   const [filteredRequests, setFilteredRequests] = useState<RequestType[]>([]);
   const [tools, setTools] = useState<Array<{ tool: ToolType; request: RequestType }>>([]);
-  //TODO have page re-render after clicking accept/decline
+  const { currentUserId } = useCurrentUserStore((state) => state);
+
   useEffect(() => {
     console.log('got triggered 1');
     setFilteredRequests(requests.filter(request => request.status === statusFilter));
@@ -84,7 +87,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
         {filteredRequests.length === 0 ?
           <h1>You have no requests</h1>          
           :
-          tools.map(({ tool, request }) => (
+          tools.filter(tool => tool.tool.ownerId === currentUserId).map(({ tool, request }) => (
             <div key={request.id} className="border-slate-50 w-[358.203px] border-4 p-4 rounded-xl shadow-xl shadow-slate-400 flex flex-col items-center m-4">
               <div
                 className="relative w-full h-64 rounded-m overflow-hidden bg-cover bg-center"
