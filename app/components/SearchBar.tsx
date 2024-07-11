@@ -12,10 +12,11 @@ const SearchBar = () => {
   const router = useRouter();
   const handleChange = useDebouncedCallback((query: string) => {
     const params = new URLSearchParams(searchParams);
+    console.log(params);
     if (query) params.set('query', query);
     else params.delete('query');
 
-    router.replace(`${pathName}?${params.toString()}`);
+    router.replace(`${pathName}?${params.toString().toLowerCase()}`);
   }, 1000);
 
   return (
