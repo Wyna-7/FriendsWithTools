@@ -99,7 +99,7 @@ const ReceivedRequests = ({ requests }: { requests: RequestType[] }) => {
               <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
                 <h2 className="text-lg font-semibold">Request Information</h2>
                 <p className="text-gray-600">Status: {request.status}</p>
-                <p className="text-gray-600">Requester: {tool.owner.name}</p>
+                <p className="text-gray-600">Requester: {request.user.name} {request.user.lastName} </p>
                 <p className="text-gray-600">Request Sent: {new Date(request.createdAt).toLocaleDateString()}</p>
               </div>
 

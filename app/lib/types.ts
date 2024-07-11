@@ -87,6 +87,7 @@ export type ToolRequest = {
   createdAt: Date;
   toolId: string;
   userId: string;
+  user: User;
 };
 
 export type Category = {

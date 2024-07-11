@@ -41,7 +41,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
 
 
   const handleChatClick = () => {
-    console.log('here', request.userId, tool.ownerId)
+    console.log('here', request.userId, tool.ownerId);
     socket.emit('create_conversation', { userId: request.userId, toolOwnerId: tool.ownerId });
     socket.on('conversation_created', (conversation: any) => {
       router.push(`/chat/${conversation.id}`);
@@ -52,7 +52,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
   };
 
 
-  console.log("hello")
+  console.log('hello');
   return (
     <div className="border-slate-50 w-[358.203px] border-4 p-4 rounded-xl shadow-slate-400 shadow-xl flex flex-col items-center m-4">
       <div
@@ -68,6 +68,7 @@ const RequestToolCard = ({ tool, request, onDelete }: RequestToolCardProps) => {
       <div className="w-full mt-4 p-4 bg-white rounded-lg shadow-md">
         <h2 className="text-lg font-semibold">Request Information</h2>
         <p className="text-gray-600">Status: {request.status}</p>
+        <p className="text-gray-600">Owner: {tool.owner.name} {tool.owner.lastName}</p>
         <p className="text-gray-600">Request Sent: {new Date(request.createdAt).toLocaleDateString()}</p>
       </div>
 
