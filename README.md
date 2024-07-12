@@ -64,6 +64,11 @@ To launch EquipMate, run
 npm run dev
 ```
 
+### Socket.io
+To launch Socket.io, run 
+```
+npm run sockets
+```
 
 ## Tech Stack
 * [NextJS](https://nextjs.org)
