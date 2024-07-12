@@ -8,6 +8,9 @@ export async function GET (request: NextRequest, { params }: { params: { current
       where: {
         userId: currentUserId,
       },
+      include: {
+        user: true
+      }
     });
     console.log('hello here', requests);
 
