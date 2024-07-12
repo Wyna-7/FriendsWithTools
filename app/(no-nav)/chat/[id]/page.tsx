@@ -20,9 +20,6 @@ const ChatPage = () => {
   const [newMessage, setNewMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [socket, setSocket] = useState<any>(null);
-  // const { currentUserId } = useCurrentUserStore((state) => state);
-  // console.log(currentUserId, 'before')
-
   const { currentUserId, setCurrentUserId } = useCurrentUserStore((state) => state);
 
   useEffect(() => {
@@ -83,25 +80,22 @@ const ChatPage = () => {
     if (newMessage.trim()) {
       const messageData = {
         content: newMessage,
-        authorId: currentUserId, // Replace with actual user ID
-        // authorId: currentUserId, // Replace with actual user ID
+        authorId: currentUserId,
         conversationId: id,
       };
       socket.emit('send_msg', messageData);
       setNewMessage('');
     }
-
   };
 
 
   if (loading) {
     return <div>Loading messages...</div>;
   }
-  console.log(currentUserId, messages)
 
   return (
     <div>
-      <header className=' flex items-center justify-start inset-x-0 top-0  h-20 shadow-md mb-1 bg-darkGreen'>
+      <header className=' flex fixed items-center justify-start inset-x-0 top-0  h-20 shadow-md mb-1 bg-darkGreen'>
         <Link href='/inbox'>
           <ChevronLeftIcon className='h-9 w-9  m-4 text-white' />
         </Link>
@@ -111,12 +105,11 @@ const ChatPage = () => {
           alt={'tool picture'}
         />
         <div className='chat-info flex-col ml-6 text-white'>
-          <p className='font-bold'>John: Vaccuum</p>
-          <p>Daily rate: €5</p>
+          <p className='font-bold'>{`${messages[0].conversation.sender.name} ${messages[0].conversation.sender.lastName}`}</p>
         </div>
       </header>
-      <div className='chat-view flex-col overflow-scroll h-[43rem] w-full p-2'>
-        <ul>
+      <div className='chat-view flex-col overflow-auto h-full w-full p-2 '>
+        <ul className='my-20'>
           {messages.map((message) => (
             <li key={message.id} className={`list-none  flex ${message.authorId === currentUserId ? 'justify-end' : 'justify-start'}`} >
               <div className={`w-fit min-w-[10rem] rounded-md m-4 p-2 ${message.authorId === currentUserId ? 'bg-green-100' : 'bg-blue-100'}`}>
@@ -127,8 +120,8 @@ const ChatPage = () => {
           ))}
         </ul>
       </div>
-      <footer className=' fixed bg-white inset-x-0 bottom-0 border-t  border-grey h-20 shadow-md p-2'>
-        <div className='flex w-full max-w-sm items-center space-x-2 mt-3'>
+      <footer className=' fixed flex justify-center content-center bg-white inset-x-0 bottom-0 border-t border-grey h-20 shadow-md p-2'>
+        <div className='flex justify-center w-full items-center space-x-2'>
           <Input type='text'
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}

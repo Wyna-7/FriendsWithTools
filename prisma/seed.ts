@@ -172,15 +172,6 @@ async function main () {
       conversationId: conversations[0].id,
       conversation: conversations[0]
     }
-    // {
-    //   id: uuidv4(),
-    //   content: 'Hello, I\'m interested in renting your vaccum.',
-    //   createdAt: new Date(),
-    //   authorId: users[1].id,
-    //   author: users[1],
-    //   conversationId: conversations[0].id,
-    //   conversation: conversations[0]
-    // },
   ];
 
   const toolrequests: ToolRequest[] = [
@@ -190,6 +181,21 @@ async function main () {
       createdAt: new Date(),
       toolId: toolCards[0].id,
       userId: users[0].id,
+      user: {
+        id: '',
+        clerkId: '',
+        username: '',
+        name: '',
+        lastName: '',
+        email: '',
+        conversations: [],
+        receivedConversations: [],
+        reviews: [],
+        listings: [],
+        messages: [],
+        wishlist: undefined,
+        toolrequests: []
+      }
     },
     {
       id: uuidv4(),
@@ -197,6 +203,21 @@ async function main () {
       createdAt: new Date(),
       toolId: toolCards[1].id,
       userId: users[0].id,
+      user: {
+        id: '',
+        clerkId: '',
+        username: '',
+        name: '',
+        lastName: '',
+        email: '',
+        conversations: [],
+        receivedConversations: [],
+        reviews: [],
+        listings: [],
+        messages: [],
+        wishlist: undefined,
+        toolrequests: []
+      }
     },
     {
       id: uuidv4(),
@@ -204,6 +225,21 @@ async function main () {
       createdAt: new Date(),
       toolId: toolCards[0].id,
       userId: users[0].id,
+      user: {
+        id: '',
+        clerkId: '',
+        username: '',
+        name: '',
+        lastName: '',
+        email: '',
+        conversations: [],
+        receivedConversations: [],
+        reviews: [],
+        listings: [],
+        messages: [],
+        wishlist: undefined,
+        toolrequests: []
+      }
     },
   ];
 

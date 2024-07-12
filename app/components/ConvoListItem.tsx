@@ -15,13 +15,11 @@ export interface ConversationProps {
   convo: Conversation
 };
 
-//TODO: Style so avatar, last msg and time show at the same distance
 
 const ConvoListItem = ({ convo }: ConversationProps) => {
 
   return (
     <>
-      {/* <Link href='/chat' convo={convo}> */}
       <Link href={`/chat/${convo.id}`}>
         <div className='flex row-span-1 row py-[1.25rem] px-[1rem]  border rounded border-solid border-zinc-400 items-center justify-between mb-1'>
           <Avatar className='mr-5'>

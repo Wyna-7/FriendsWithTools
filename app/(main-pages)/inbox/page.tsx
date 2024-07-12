@@ -5,29 +5,12 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import ConvoListItem from '../../components/ConvoListItem';
 import { useEffect, useState } from 'react';
 import { Conversation } from '../../lib/types';
-import { useCurrentUserStore } from '@/app/lib/stores/test-store';
 import io from 'socket.io-client';
 
 
 const InboxPage = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const { currentUserId } = useCurrentUserStore((state) => state);
-
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     try {
-  //       const response = await fetch('/api/loggedUser');
-  //       const data = await response.json();
-  //       setCurrentUserId(data.id);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchCurrentUser();
-  // }, []);
-
 
   useEffect(() => {
     const socket = io('http://localhost:3001');
@@ -44,7 +27,6 @@ const InboxPage = () => {
     };
 
     fetchConversations();
-    // console.log('here')
 
     socket.on('connect', () => {
       console.log('Connected to socket server:', socket.id);

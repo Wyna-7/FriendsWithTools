@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../../prisma/db'; 
 
 export async function GET (request: NextRequest, { params }: { params: { id: string } }) {
-  // console.log('here')
   const { id } = params;
 
   if (!id) {
@@ -16,6 +15,12 @@ export async function GET (request: NextRequest, { params }: { params: { id: str
         messages: {
           include: {
             author: true, 
+            conversation: {
+              include: {
+                sender: true,
+                receiver: true,
+              }
+            },
           },
         },
         sender: true, 
